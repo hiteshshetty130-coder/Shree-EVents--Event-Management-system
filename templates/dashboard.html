@@ -1,0 +1,82 @@
+<!-- dashboard file code it extends base.html file for left bar and right bar code is written inside content block -->
+{% extends "base.html" %} {% block title %}DASHBOARD{% endblock %} {% block
+content %}
+<div class="status-container">
+  <h2>Business Overview</h2>
+  <hr />
+  <!-- payments overview -->
+  <div class="payments-box">
+    <div class="total-box">
+      <h3><i class="fa-solid fa-briefcase"></i>Total events Booked</h3>
+      <hr />
+      <p>{{total_events}}</p>
+    </div>
+    <div class="pending-box">
+      <h3><i class="fa-solid fa-sack-dollar"></i>Total Sales</h3>
+      <hr />
+      <p>{{pending}}</p>
+    </div>
+    <div class="cleared-box">
+      <h3><i class="fa-solid fa-calendar-check"></i>Total Monthly Events</h3>
+      <hr />
+      <p>{{cleared}}</p>
+    </div>
+  </div>
+</div>
+
+<!-- chart and list section -->
+<div class="down-container">
+  <div class="chart-container">
+    <h1>Events Sales Analysis</h1>
+    <hr />
+    <canvas id="barchart" width="300px" height="150px" style="margin-top: 30px; padding: 0 20px"></canvas>
+  </div>
+
+  <!--upcoming list inside that evnets list div with icon and text-->
+  <div class="upcoming-list-container">
+    <h2>Upcoming Events</h2>
+    <hr />
+    {% for e in upcoming_events %}
+    <div class="events-list">
+      <div class="event-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="event-text">
+        <h3>{{e[0]}}</h3>
+        <p>{{e[1]}} | {{e[2]}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %} 
+{% block scripts %}
+<script src="{{url_for('static',filename='script.js')}}"></script>
+<script>
+  const mychart = document.getElementById("barchart");
+  const labelx = JSON.parse('{{ months|tojson|safe }}');
+  const labely = JSON.parse('{{ sales|tojson|safe }}');
+
+  new Chart(mychart,
+    {
+      type: "bar",
+      data: {
+        labels: labelx,
+        datasets: [{
+          label: "REVENUE",
+          data: labely,
+          backgroundColor: ["red"],
+
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    })
+</script>
+{% endblock %}

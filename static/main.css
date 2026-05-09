@@ -1,0 +1,1447 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* login page styling */
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d8d8f7;
+}
+
+/* login box  */
+.login-box {
+  height: 450px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* image container */
+.login-image {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+/* img styling */
+.login-image img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.login-box h1 {
+  color: #1a1600;
+  font-size: 1.8em;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 2px;
+}
+
+.login-box p {
+  color: #6b7280;
+  font-size: 14px;
+  font-family: "Roboto Slab", serif;
+  margin-top: 2%;
+  font-weight: bold;
+}
+
+/* username and password div styling with input tag also */
+.username-box {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin-top: 3%;
+  justify-content: center;
+}
+
+input {
+  width: 80%;
+  border: 1px solid black;
+  padding: 2%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  /* transition: 3s ease; */
+}
+
+/* when clicked input box*/
+input:focus {
+  border-bottom: 1px solid;
+  border-color: #4f46e5;
+  box-shadow: 0 3px 0 0px rgba(79, 70, 229, 0.12);
+}
+
+.password-box {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin-top: 5%;
+  justify-content: center;
+}
+
+/* submit button */
+.submit {
+  margin-top: 5%;
+  width: 80%;
+  height: 30px;
+  font-size: 1em;
+  font-family: "Roboto Slab", serif;
+  background-color: #4f46e5;
+  font-weight: 900;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+/* .error container style while logging */
+.error {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error p {
+  font-family: "Inter";
+  font-size: 0.8em;
+  color: red;
+  font-weight: 400;
+}
+
+.login-info {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 6%;
+  background-color: #f5f5fb;
+  border-top: 1px solid #e8e8f5;
+  margin-top: auto;
+  justify-content: center;
+  padding: 0 1px;
+}
+
+.login-info p {
+  font-family: "Roboto Slab", serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+/* base file styling and dashboard file styling */
+/* main container full */
+.dashboard-container {
+  height: 100vh;
+  display: flex;
+  background-color: #e2e2f1;
+}
+
+/* nav bar styling */
+.left-bar {
+  width: 18%;
+  padding: 0.5%;
+  position: relative;
+  margin: 0.5% 1%;
+  overflow: hidden;
+  background-color: white;
+}
+
+/* main heading styling  */
+.left-bar .left-header {
+  height: 8%;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+/* small logo and header styling */
+.left-header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+
+.left-header h2 {
+  font-family: "Roboto Slab", serif;
+  font-size: 1.5em;
+}
+
+/* navsection container */
+.left-bar .nav-section {
+  width: 100%;
+  height: 92%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+/* all nav bar components */
+.nav-section ul {
+  list-style: none;
+}
+
+.nav-section ul li {
+  padding: 2% 10%;
+  font-size: 1.3em;
+  margin-bottom: 5%;
+  font-weight: 600;
+  border-left: 5px solid transparent;
+  transition: 1s ease;
+  letter-spacing: 1px;
+}
+
+/* a tag used to navigate to diffrent pages */
+.nav-section ul li a {
+  font-family: "Roboto Slab", serif;
+  text-decoration: none;
+  color: black;
+}
+
+/* icon inside li tag  */
+.nav-section ul li a i {
+  font-size: 1em;
+  color: black;
+  margin-right: 3%;
+}
+
+.nav-section ul li:hover {
+  background-color: gray;
+  border-left: 5px solid black;
+}
+
+/* main section style */
+.right-bar {
+  width: 79%;
+  margin: 0.5% 0;
+  background-color: #e2e2f1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* top three box container inside boxes style */
+.right-bar .status-container {
+  width: 100%;
+  height: 25%;
+  color: white;
+  overflow: hidden;
+  background-color: white;
+  margin-bottom: 1%;
+}
+
+.right-bar .status-container h2 {
+  padding: 3px 15px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1px;
+  font-size: 1.2em;
+  color: rgb(70, 62, 62);
+}
+
+hr {
+  width: 98%;
+  margin: auto;
+}
+
+/* main three container styling */
+.status-container .payments-box {
+  width: 100%;
+  height: 70%;
+  font-family: "Roboto Slab", serif;
+  margin: 1% 1%;
+  display: flex;
+  gap: 20px;
+  color: #fff;
+}
+
+/* total-box styling */
+.payments-box .total-box {
+  width: 31%;
+  height: 100%;
+  padding: 1%;
+  background: linear-gradient(135deg,#ff9966,#ff5e62);
+  
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* pending box style */
+.payments-box .pending-box {
+  width: 31%;
+  height: 100%;
+  background: linear-gradient(135deg,#36d1dc,#5b86e5);
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* cleared box styling */
+.payments-box .cleared-box {
+  width: 31%;
+  height: 100%;
+background: linear-gradient(135deg,#56ab2f,#a8e063);
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* styling of all content inside total,pendingand cleared box */
+.payments-box .total-box h3,
+.payments-box .pending-box h3,
+.payments-box .cleared-box h3 {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+}
+
+.total-box h3 i,
+.pending-box h3 i,
+.cleared-box h3 i {
+  margin-right: 5px;
+  font-size: 1em;
+}
+
+.payments-box .total-box hr,
+.payments-box .pending-box hr,
+.payments-box .cleared-box hr {
+  width: 80%;
+  border: 1px solid white;
+  opacity: 0.5;
+  margin: 10px 0;
+}
+
+.total-box p,
+.pending-box p,
+.cleared-box p {
+  font-size: 2em;
+  margin-bottom: 2%;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* container for charts and upcoming events */
+.right-bar .down-container {
+  margin: 0% 0;
+  width: 100%;
+  height: 73%;
+  display: flex;
+  background-color: #e2e2f1;
+  gap: 0 15px;
+}
+
+/* chart div */
+.down-container .chart-container {
+  width: 65%;
+  height: 100%;
+  background-color: white;
+  overflow: hidden;
+}
+
+.chart-container h1 {
+  font-size: 1.5em;
+  margin: 5px 25px;
+}
+
+/* upcoming list div */
+.down-container .upcoming-list-container {
+  gap: 50px;
+  width: 35%;
+  height: 100%;
+  background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* scrolling bar styling */
+.upcoming-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.upcoming-list-container::-webkit-scrollbar-thumb {
+  background: #cfd8dc;
+  border-radius: 10px;
+}
+
+.upcoming-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* main head */
+.upcoming-list-container h2 {
+  padding: 8px;
+  margin-left: 10px;
+  letter-spacing: 1px;
+}
+
+.upcoming-list-container hr {
+  width: 95%;
+}
+
+/*div for list icon and texts*/
+.events-list {
+  display: flex;
+  align-items: center;
+  padding: 12px 12px;
+  border-bottom: 1px solid #eee;
+  margin: 0 5px;
+}
+
+.events-list .event-icon {
+  height: 40px;
+  width: 40px;
+  background-color: #eef3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.events-list .event-icon i {
+  font-size: 20px;
+  color: #1a1612;
+}
+
+.events-list .event-text h3 {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-family: "Inter", sans-serif;
+}
+
+.events-list .event-text p {
+  font-size: 14px;
+  margin-top: 2px;
+  letter-spacing: 1px;
+  font-family: "Roboto Slab", serif;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+/* events page styling */
+/* event creating form conatiner styling */
+.event-creation-container {
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: #fff;
+  overflow-y: hidden;
+  height: max-content;
+}
+
+.event-creation-container h2 {
+  padding: 8px;
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  font-family: "Roboto Slab", serif;
+}
+
+.event-creation-container form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* for each conatiner label and input to come down down */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label {
+  margin-bottom: 8px;
+  font-size: 16px;
+  padding-left: 5px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.form-container input {
+  border: 1px solid #ddd;
+  height: 34px;
+  width: 100%;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  padding: 5px;
+  transition: 0.3s ease;
+}
+
+/* bottom buttonm styling */
+.form-btn {
+  margin-top: 10px;
+}
+
+.form-btn input {
+  width: 30%;
+  height: 30px;
+  font-size: 14px;
+  padding: 1px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.form-btn input[name="create"] {
+  background-color: blue;
+}
+
+.form-btn input[name="update"] {
+  background-color: green;
+}
+
+.form-container input:hover {
+  opacity: 0.5;
+}
+
+/* below created event list conatiner */
+.event-upcoming-list {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 8px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.event-upcoming-list h2 {
+  padding: 10px 15px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1.5px;
+  font-size: 22px;
+}
+
+/* table height width */
+.event-upcoming-list .upcoming-event-table {
+  width: 100%;
+  height: 84%;
+  margin-top: 5px;
+}
+
+.upcoming-event-table table {
+  width: 98%;
+  border-collapse: collapse;
+  margin: 0 10px;
+}
+
+thead {
+  background: #f5f6fa;
+}
+
+table th {
+  height: 35px;
+  text-align: left;
+  padding-left: 15px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1.5px;
+}
+
+table td {
+  padding: 10px 15px;
+  height: 30px;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1.2px;
+  color: #333;
+  font-weight: 600;
+}
+
+.action {
+  text-align: center;
+}
+
+table td button {
+  background-color: #fff;
+  border: none;
+  outline: none;
+  height: 20px;
+  font-size: 18px;
+}
+
+button .fa-pen-to-square {
+  color: blue;
+  margin-right: 25px;
+}
+
+button .fa-trash {
+  color: red;
+}
+
+/* scrolling of table stuyling */
+.event-upcoming-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.event-upcoming-list::-webkit-scrollbar-thumb {
+  background: rgb(141, 140, 140);
+  border-radius: 10px;
+}
+
+.event-upcoming-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ----------------------------------------------------------------------------------------------- */
+/* inventory module */
+/* main container */
+.main-inventory-box {
+  width: 100%;
+  height: 100%;
+  background-color: #e2e2f1;
+  overflow: hidden;
+}
+
+/* main header */
+.main-inventory-box .inventory-header {
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.inventory-header h2 {
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1px;
+  font-size: 24px;
+}
+
+/* icon on heading */
+.inventory-header h2 i {
+  margin-right: 5px;
+}
+
+/* add inventory item button */
+.inventory-header button {
+  color: white;
+  font-family: "Roboto Slab", serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  outline: none;
+  border: none;
+  border-radius: 8px;
+}
+
+.inventory-header button i {
+  margin-right: 5px;
+}
+
+/* adding inventory container */
+.main-inventory-box .inventory-events-list {
+  width: 100%;
+  height: 35%;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+/* header */
+.in-child-header {
+  width: 100%;
+  padding: 10px;
+}
+
+.in-child-header h2 {
+  font-size: 18px;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1px;
+}
+
+.in-child-header h2 i {
+  margin-right: 5px;
+}
+
+/* table conatiner */
+.inventory-events-list .inventory-table-container {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+/* table styling */
+.inventory-table-container table {
+  width: 99%;
+  margin: 0 6px;
+  border-collapse: collapse;
+}
+
+.inventory-table-container table thead td {
+  background-color: #f5f6fa;
+  height: 20px;
+  font-family: "Roboto Slab", serif;
+  text-align: center;
+  padding: 10px;
+}
+
+.inventory-table-container table tbody td {
+  font-family: "Roboto Slab", serif;
+  height: 15px;
+  text-align: center;
+}
+
+.inventory-table-container table tbody tr:hover {
+  background-color: #f1f5ff;
+  transition: 0.2s;
+}
+
+/* allocate inventory button */
+.inventory-table-container table td button {
+  color: white;
+  font-family: "Roboto Slab", serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  height: 25px;
+  padding: 1px 8px;
+  background-color: #10b981;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+}
+
+/* scrollbar styling */
+.inventory-events-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.inventory-events-list::-webkit-scrollbar-thumb {
+  background: rgb(141, 140, 140);
+  border-radius: 10px;
+}
+
+.inventory-events-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* all the events if inventory allocated container  */
+.allocated-inventory-container {
+  width: 100%;
+  height: 60%;
+  margin-top: 1%;
+  background-color: #fff;
+  overflow-y: hidden;
+}
+
+.allocated-inventory-container h2 {
+  padding: 10px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-family: "Roboto Slab", serif;
+  cursor: pointer;
+}
+.events-cont{
+  width: 100%;
+  height: 90%;
+  overflow: auto;
+  padding: 10px;
+}
+
+.events-cont::-webkit-scrollbar {
+  width: 6px;
+}
+
+.events-cont::-webkit-scrollbar-thumb {
+  background: rgb(141, 140, 140);
+  border-radius: 10px;
+}
+
+.events-cont::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* each box  */
+.allocated-inventory-container .events-cont .event {
+  width: 98%;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-left: 10px;
+  padding: 15px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-family: "Roboto Slab", serif;
+  margin-bottom: 10px;
+
+}
+
+/* main event name */
+.event-header {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+/* arrow at end of box */
+.event-header span {
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.event-header button {
+  margin-left: 20px;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  height: 20px;
+  font-size: 18px;
+}
+
+/* when clicked js logic turns display into block */
+.allocated-inventory-container .inventory {
+  display: none;
+}
+
+.event.active .inventory {
+  display: block;
+}
+
+/* arrow rotates */
+.event.active .side {
+  transform: rotate(90deg);
+}
+
+/* all the inventory allocated table */
+.inventory table {
+  width: 98%;
+  padding: 20px 0;
+  color: black;
+}
+
+.inventory table thead td,
+.inventory table tbody td {
+  border: 1px solid black;
+}
+
+/* delete btn style */
+.inventory table td button {
+  width: 100px;
+  height: 30px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 1px;
+}
+
+/* add inventory pop up form */
+.pop-up-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+}
+
+/* small box at middle */
+.pop-up-container .pop-up-form {
+  width: 30%;
+  height: auto;
+  background-color: #fff;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-family: "Roboto Slab", serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+/* exit button  */
+.exit-inven-div {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+}
+
+.exit-inven-div button {
+  width: 100%;
+  height: 100%;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 18px;
+}
+
+.exit-inven-div:hover {
+  background-color: red;
+  color: white;
+}
+
+.exit-inven-div button:hover {
+  color: white;
+}
+
+
+.pop-up-container h2 {
+  text-align: center;
+  padding: 5px;
+  letter-spacing: 1px;
+}
+
+.pop-up-form form {
+  width: 90%;
+}
+
+/* all input tags inside the form */
+.pop-up-form form .pop-up-input {
+  width: 100%;
+  height: max-content;
+  margin: 20px 0;
+}
+
+/* label name */
+.pop-up-input p {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+/* input tag style */
+.pop-up-input input {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+  background-color: #e8e8f5;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* add btn style */
+.pop-up-form form button {
+  display: block;
+  width: 30%;
+  height: 30px;
+  margin: 10px auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #04642f;
+  color: white;
+  font-family: "Roboto Slab", serif;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+/* allocate inventory pop up form */
+.pop-up-allocate-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+}
+
+/* Popup Card */
+.pop-up-form-al {
+  width: 45%;
+  height: 75%;
+  background: linear-gradient(135deg, #ffffff, #f3f6ff);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  font-family: "Roboto Slab", serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* heading */
+.pop-up-form-al h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #2c2c2c;
+  margin-bottom: 5px;
+}
+
+.pop-up-form-al hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 5px 0 15px 0;
+}
+
+/* Save Button */
+.top-save-btn {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+}
+
+.top-save-btn button {
+  height: 35px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #4a6cf7, #6a8dff);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.top-save-btn button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(74, 108, 247, 0.4);
+}
+
+/* Close Button */
+.exit-div {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.exit-div button {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+}
+
+.exit-div:hover {
+  background-color: #ff4d4d;
+}
+
+.exit-div button:hover {
+  color: white;
+}
+
+/* Form Layout */
+.pop-up-form-al form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0 20px 0;
+}
+
+/* Search Box */
+.search-box {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-box input:focus {
+  border-color: #4a6cf7;
+  box-shadow: 0 0 5px rgba(74, 108, 247, 0.3);
+}
+
+.search-box button {
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  padding: 0 12px;
+  background: #4a6cf7;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-box button:hover {
+  background: #2f54eb;
+}
+
+/* Item List*/
+.item-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Scrollbar */
+.item-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.item-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Inventory Card */
+.pop-up-form-al .inventory-all-container {
+  width: 100%;
+  background: #ffffff;
+  height: 65px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  transition: 0.2s;
+}
+
+.inventory-all-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Content */
+.inventory-all-container .inventory-content {
+  width: 50%;
+}
+
+.inventory-content p {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.inventory-content span {
+  font-size: 13px;
+  color: #777;
+}
+
+/* Actions */
+.inventory-all-container .inventory-action {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Buttons */
+.inventory-action button {
+  width: 30%;
+  height: 30px;
+  background: #4a6cf7;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.inventory-action button:hover {
+  background: #2f54eb;
+}
+
+/* Input */
+.inventory-action input {
+  width: 40%;
+  border: 1px solid #ccc;
+  text-align: center;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* payments main container */
+.payment-content {
+  width: 100%;
+  min-height: 98vh;
+  background: #f4f6f9;
+
+  font-family: "Roboto Slab", serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* main container */
+.payments-table-container {
+  width: 100%;
+  height: 98vh;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+}
+
+/* heading */
+.payments-table-container h2 {
+  font-size: 26px;
+  color: #222;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+/* line */
+.payments-table-container hr {
+  border: none;
+  height: 2px;
+  background: #e5e7eb;
+  margin-bottom: 20px;
+}
+
+/* table */
+.payments-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 25px;
+}
+
+/* header */
+.payments-table-container table thead {
+  background: #04642f;
+  color: white;
+}
+
+.payments-table-container table thead td {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+/* body rows */
+.payments-table-container table tbody tr {
+  transition: 0.3s ease;
+}
+
+.payments-table-container table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.payments-table-container table tbody tr:hover {
+  background: #eef7f1;
+  transform: scale(1.002);
+}
+
+/* table cells */
+.payments-table-container table td {
+  padding: 8px;
+  border-bottom: 1px solid #ececec;
+  font-size: 14px;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+
+/* button */
+.payments-table-container table button {
+  background: #04642f;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 1px 16px;
+  height: 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Roboto Slab", serif;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: 0.3s ease;
+  box-shadow: 0 2px 8px rgba(4, 100, 47, 0.2);
+}
+
+.payments-table-container table button:hover {
+  background: #035126;
+  transform: translateY(-2px);
+}
+
+/* scrollbar */
+.payments-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.payments-table-container::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+/* ----------------------------------------------------------------------------------------------------- */
+/* orders module */
+.orders-content {
+  width: 100%;
+  height: 100vh;
+  background: #f4f6f9;
+
+  font-family: "Roboto Slab", serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* main container */
+.orders-table-container {
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+
+  overflow-y: auto;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* heading */
+.orders-table-container h2 {
+  font-size: 26px;
+  color: #222;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+/* line */
+.orders-table-container hr {
+  border: none;
+  height: 2px;
+  background: #e5e7eb;
+  margin-bottom: 20px;
+}
+
+/* table */
+.orders-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  
+}
+
+/* table header */
+.orders-table-container table thead {
+  background: #04642f;
+}
+
+.orders-table-container table thead td {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+/* body rows */
+.orders-table-container table tbody tr {
+  transition: 0.3s ease;
+}
+
+.orders-table-container table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.orders-table-container table tbody tr:hover {
+  background: #eef7f1;
+}
+
+/* table cells */
+.orders-table-container table td {
+  padding: 8px;
+  border-bottom: 1px solid #ececec;
+  font-size: 14px;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+/* status buttons */
+.orders-table-container table button {
+  color: white;
+  font-family: "Roboto Slab", serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 1px 14px;
+  height: 30px;
+  background-color: #04642f;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  min-width: 100px;
+  text-transform: capitalize;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(4, 100, 47, 0.2);
+}
+
+/* scrollbar */
+.orders-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.orders-table-container::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOGIN-PAGE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+</head>
+
+<body>
+  <!-- login box code and login info  -->
+  <div class="container">
+    <!-- action is done using url for because flask wants path like that  -->
+    <form method="post" action="{{url_for('login_fn')}}">
+      <div class="login-box">
+        <div class="login-image">
+          <!-- src is inside static folder so url_for is used  -->
+          <img src="{{url_for('static',filename='images/DOC-20260319-WA0019..png')}}" alt="" />
+        </div>
+        <h1>SHREE EVENTS</h1>
+        <p>Welcome Admin !</p>
+        <div class="username-box">
+          <input type="text" placeholder="ENTER USERNAME" name="username" />
+        </div>
+        <div class="password-box">
+          <input type="password" name="password" placeholder="ENTER PASSWORD" />
+        </div>
+        <button class="submit" type="submit">LOG IN</button>
+
+        <!-- jinja code using flask it will work if error then only it will execute -->
+        {% if error %}
+        <div class="error">
+          <p>{{error}}</p>
+        </div>
+        {% endif %}
+
+        <div class="login-info">
+          <p>
+            Admin Access only. Please Contact the System administrator for
+            <br />
+            login assistance
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

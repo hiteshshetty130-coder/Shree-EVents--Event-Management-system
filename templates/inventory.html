@@ -1,0 +1,229 @@
+{% extends "base.html" %} {% block title %}INVENTORY{% endblock %} 
+{% block content %}
+<!-- main conatiner full -->
+<div class="main-inventory-box">
+
+  <!-- main header -->
+  <div class="inventory-header">
+    <h2><i class="fa-solid fa-box"></i>Inventory</h2>
+    <button type="button" id="openPopup">
+      <i class="fa-solid fa-plus"></i>Add Inventory Item
+    </button>
+  </div>
+
+  <hr style="opacity: 0.5" />
+
+  <!-- events list with allocate inventory btn -->
+  <div class="inventory-events-list">
+
+    <!-- conatiner hedaer -->
+    <div class="in-child-header">
+      <h2>
+        <i class="fa-solid fa-calendar-days"></i>Events(Allocate Inventory)
+      </h2>
+    </div>
+
+    <hr />
+
+    <!-- form to send post request -->
+    <form method="post">
+
+      <div class="inventory-table-container">
+        <!-- table to show all the events data -->
+        <table>
+          <thead>
+            <tr>
+              <td>Event Name</td>
+              <td>Date</td>
+              <td>Place</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- for all the events with status pending show here -->
+            {% for e in events %}
+            <tr>
+              <td>{{e[1]}}</td>
+              <td>{{e[2]}}</td>
+              <td>{{e[4]}}</td>
+              <td>
+                <button name="allocate" type="button" id="allocate_btn" class="allocate_btn" data-id="{{e[0]}}">
+                  Allocate Inventory
+                </button>
+                <input type="hidden" name="id" value="{{e[0]}}" />
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+  </div>
+
+
+  <!-- allocated inventory conatiner -->
+  <div class="allocated-inventory-container">
+    <h2>Allocated Inventory</h2>
+    <div class="events-cont">
+    <!-- events with status allocated shown here -->
+    {% for events in allocated_events_list %}
+
+    <!-- main small box with event name edit button  -->
+    <div class="event">
+      <form method="post">
+        <div class="event-header">
+          <p>{{events[1]}}</p>
+          <button type="button" class="edit-btn" data-event="{{events[0]}}"><i
+              class="fa-solid fa-pen-to-square"></i></button>
+          <span class="side">></span>
+        </div>
+
+        <!-- when clicked on that box the inventory allocated to the event are shown -->
+        <div class="inventory">
+          <table>
+            <thead>
+              <tr>
+                <td>Item Name</td>
+                <td>Quantity</td>
+                <td>Price/Q</td>
+                <td>Total Price</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- all the inventory of that event show -->
+              {% for row in allocated_list %}
+              <!-- if item_id matched then show -->
+              {% if row[0]==events[0] %}
+              <tr>
+
+                <td>{{row[2]}}</td>
+                <td>{{row[4]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[5]}}</td>
+                <td>
+                  <form method="post">
+                    <input type="hidden" name="event_id" value="{{row[0]}}">
+                    <input type="hidden" name="item_id" value="{{row[6]}}">
+                    <button name="delete_btn" onclick="return confirm('Are you sure you want to deelete this inventory?')">delete</button>
+                  </form>
+                </td>
+              </tr>
+
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+          {% for t in total_data %}
+          {% if t[0]==events[0] %}
+          <p style="text-align: right; padding-right: 50px;padding-bottom:5px ;">
+            Total Amount - {{t[1]}}
+          </p>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
+
+
+  <!-- inventory adding container  -->
+  <div class="pop-up-container" id="popupform">
+    <input type="hidden" value="{{show_popup}}" id="popupflag" />
+
+    <!-- inside container -->
+    <div class="pop-up-form">
+      <h2>Add Inventory</h2>
+
+      <div class="exit-inven-div">
+        <button type="submit" id="exit-pop" class="exit"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form method="post">
+        <div class="pop-up-input">
+          <p>Item name :</p>
+          <input type="text" name="itemname" placeholder="Enter the Item name...." required/>
+        </div>
+        <div class="pop-up-input">
+          <p>Quantity :</p>
+          <input type="number" name="quantity" placeholder="Enter Available Quantity..." min="1" required/>
+        </div>
+        <div class="pop-up-input">
+          <p>Item Price :</p>
+          <input type="number" name="price" placeholder="Enter the Item Price...." min="1" required/>
+        </div>
+        <button type="submit" name="allocate_inventory">Add Item</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- inventory alloaction container -->
+  <div class="pop-up-allocate-container" id="popupformallocate">
+    <div class="pop-up-form-al">
+      <h2>Allocate Inventory</h2>
+      <hr />
+
+      <div class="exit-div">
+        <button type="submit" id="exit" class="exit"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form method="post">
+
+        <div class="top-save-btn">
+          <button type="submit" name="sava_alloc">Save Allocation</button>
+        </div>
+
+        <input type="hidden" name="event_id" value="{{event_id}}" />
+
+        <div class="search-box">
+          <input type="text" name="search" placeholder="Search inventory items..." value="{{search}}" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <button type="submit" name="search_btn">Search</button>
+          <button type="submit" name="clear_btn"
+            style="background-color: yellow; border: none; color: black;">clear</button>
+        </div>
+        
+        <!-- all item list container -->
+        <div class="item-list">
+          {% if inven_data %}
+          {% for e in inven_data %}
+          <div class="inventory-all-container">
+            <div class="inventory-content">
+              <p>{{e[1]}}</p>
+              <span>{{e[2]}} Available</span>
+            </div>
+            <div class="inventory-action">
+              <button type="button" class="minus">-</button>
+              <input type="number" name="qty_{{e[0]}}" value="{{existing_alloc.get(e[0],0)}}" class="input" min="0"
+                 />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p>No items Found</p>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>
+{% block scripts %}
+<script src="{{url_for('static',filename='script.js')}}"></script>
+<script>
+  window.addEventListener("load", () => {
+    const popup = document.getElementById("popupformallocate");
+    const flag = document.getElementById("popupflag");
+
+    if (flag && (flag.value === "True" || flag.value === "true")) {
+      popup.style.display = "flex";
+    }
+  });
+</script>
+{% endblock %}

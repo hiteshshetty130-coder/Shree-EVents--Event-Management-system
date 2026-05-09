@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="orders-content">
+    <div class="orders-table-container">
+        <h2>orders</h2>
+        <hr>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Event Name</td>
+                        <td>Date</td>
+                        <td>Place</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in events_list %}
+                    <tr>
+                        <td>{{e[1]}}</td>
+                        <td>{{e[2]}}</td>
+                        <td>{{e[4]}}</td>
+                        {% if e[7]=='upcoming' %}
+                        <td><button>{{e[7]}}</button></td>
+                        {% else %}
+                        <td><button style="background-color: red;">{{e[7]}}</button></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+    </div>
+</div>
+{% endblock %}
