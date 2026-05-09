@@ -4,6 +4,7 @@ from events import events_app
 from inventory import inventory_app
 from payments import payments_app 
 from orders import orders_app
+from items import items_app
 from database import init_db,check_user
 import sqlite3
 
@@ -15,7 +16,7 @@ app.register_blueprint(events_app)
 app.register_blueprint(inventory_app)
 app.register_blueprint(payments_app)
 app.register_blueprint(orders_app)
-
+app.register_blueprint(items_app)
 
 # home route
 @app.route('/')
@@ -27,8 +28,8 @@ def home():
 def login_fn():
     error=None
     try:
-        username=request.form['username']
-        password=request.form['password']
+        username=request.form['username'].strip()
+        password=request.form['password'].strip()
 
         user=check_user(username,password) #call function in database.py file
         if user:

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Inventory List{% endblock %}
+
+{% block content %}
+
+<div class="inventory-wrapper">
+
+  <h2 class="page-title">Available Inventory</h2>
+
+  <div class="inventory-container">
+
+    {% for item in inventories %}
+    <div class="inventory-card">
+
+      <div class="inventory-info">
+        <h3>{{ item[1] }}</h3>
+        <p>Quantity: {{ item[2] }}</p>
+        <p>Price: ₹{{ item[3] }}</p>
+      </div>
+
+      <div class="inventory-actions">
+        <a href="{{url_for('items.delete_item',item_id=item[0])}}" class="delete-btn"
+           onclick="return confirm('Are you sure?')">Delete</a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}

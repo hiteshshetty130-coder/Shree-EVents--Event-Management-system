@@ -3,7 +3,7 @@ import datetime
 from flask import flash
 
 def get_connection():
-    con=sqlite3.connect("database.db") #connect to database and create a cursor to run commands
+    con=sqlite3.connect("database.db",timeout=30,check_same_thread=False) #connect to database and create a cursor to run commands
     return con
 
 def init_db():
@@ -187,6 +187,13 @@ def get_inventory():
     con.close()
     return inven_data
 
+def delete_inventory_item(item_id):
+    con=get_connection()
+    cursor=con.cursor()
+    cursor.execute("DELETE FROM inventory WHERE item_id=?",(item_id,))
+    con.commit()
+    con.close()
+
 # search fn
 def search_inventory(search):
     con=get_connection()
@@ -296,7 +303,11 @@ def update_allocation(event_id, item_id, quantity, name, price):
     elif row:
         cursor.execute("UPDATE allocation SET quantity=?, total_price=? WHERE event_id=? AND item_id=?",(quantity, quantity * price, event_id, item_id))
     else:
-        cursor.execute("""INSERT INTO allocation(event_id, item_id, quantity, item_name, price_per_unit, total_price)VALUES(?,?,?,?,?,?)""",(event_id, item_id, quantity, name, price, quantity * price))
+        cursor.execute("SELECT event_date FROM events WHERE event_id=?",(event_id,))
+
+        event_date = cursor.fetchone()[0]
+
+        cursor.execute("""INSERT INTO allocation(event_id, item_id, quantity, item_name, price_per_unit, total_price,event_date)VALUES(?,?,?,?,?,?,?)""",(event_id, item_id, quantity, name, price, quantity * price,event_date))
 
     con.commit()
     con.close()
