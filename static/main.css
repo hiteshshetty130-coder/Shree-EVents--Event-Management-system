@@ -7,7 +7,8 @@
 /* login page styling */
 .container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,8 +17,9 @@
 
 /* login box  */
 .login-box {
-  height: 450px;
   width: 500px;
+  max-width: 100%;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,6 +151,66 @@ input:focus {
   margin: 0;
 }
 
+/* Responsive Design */
+/* Tablet */
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+    height: auto;
+    padding: 0;
+  }
+  .login-box h1 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+  .login-box p {
+    font-size: 13px;
+    text-align: center;
+  }
+  .submit {
+    height: 40px;
+  }
+  .login-info {
+    padding: 10px;
+    height: auto;
+  }
+  .login-info p {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+/* Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+  .login-box {
+    width: 100%;
+    border-radius: 12px;
+  }
+  .login-image img {
+    width: 75px;
+    height: 75px;
+  }
+  .login-box h1 {
+    font-size: 1.3em;
+    letter-spacing: 1px;
+  }
+  input {
+    width: 90%;
+    font-size: 14px;
+    padding: 12px;
+  }
+  .submit {
+    width: 90%;
+    height: 42px;
+    font-size: 0.95em;
+  }
+  .login-info p {
+    font-size: 11px;
+  }
+}
+
 /* -------------------------------------------------------------------------------------------- */
 /* base file styling and dashboard file styling */
 /* main container full */
@@ -187,7 +249,7 @@ input:focus {
 
 .left-header h2 {
   font-family: "Roboto Slab", serif;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 /* navsection container */
@@ -241,12 +303,37 @@ input:focus {
   background-color: #e2e2f1;
   display: flex;
   flex-direction: column;
+  position:relative;
+}
+
+/* hide button in desktop */
+.top-header {
+  
+  width: 100%;
+  gap: 10px;
+  background: #fff;
+  padding: 10px 15px;
+ margin-bottom: 10px;
+  border-radius: 8px;
+  display: none;
+}
+
+.menu-btn {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.top-header h2 {
+  margin: 0;
+  font-family: "Roboto Slab", serif;
 }
 
 /* top three box container inside boxes style */
 .right-bar .status-container {
   width: 100%;
-  height: 25%;
+  height: 26%;
   color: white;
   overflow: hidden;
   background-color: white;
@@ -271,7 +358,7 @@ hr {
   width: 100%;
   height: 70%;
   font-family: "Roboto Slab", serif;
-  margin: 1% 1%;
+  margin: 0.5% 1%;
   display: flex;
   gap: 20px;
   color: #fff;
@@ -321,7 +408,7 @@ background: linear-gradient(135deg,#56ab2f,#a8e063);
 .payments-box .total-box h3,
 .payments-box .pending-box h3,
 .payments-box .cleared-box h3 {
-  margin-top: 5px;
+  margin-top: 1px;
   font-size: 1.2rem;
   letter-spacing: 1.5px;
 }
@@ -1538,3 +1625,427 @@ button .fa-trash {
 .delete-btn:hover {
     background: #d9362b;
 }
+@media(max-width:768px){
+
+  body{
+    background:#f4f7fb;
+    overflow-x:hidden;
+  }
+
+  .dashboard-container{
+    position:relative;
+    display:block;
+    height:auto;
+  }
+
+  /* sidebar */
+  .left-bar{
+    position:fixed;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100vh;
+    background:white;
+    z-index:999;
+    transition:0.4s ease;
+    margin:0;
+    padding:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.08);
+  }
+
+  .left-bar.show-sidebar{
+    left:0;
+  }
+
+  .left-header{
+    justify-content:flex-start !important;
+    padding:10px 0;
+  }
+
+  .left-header h2{
+    font-size:1em;
+    font-family:"Roboto Slab", serif;
+  }
+
+  .left-bar .nav-section{
+    margin-top:20px;
+  }
+
+  .nav-section ul{
+    padding:0;
+  }
+
+  .nav-section ul li{
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    border-left:none;
+  }
+
+  .nav-section ul li:hover{
+    background:#f1f5f9;
+    border-left:none;
+  }
+
+  .nav-section ul li a{
+    font-size:1rem;
+    color:#334155;
+  }
+
+  .nav-section ul li i{
+    display:none;
+  }
+  .top-header{ 
+    display: flex;
+    align-items: center;
+  }
+
+  /* menu button */
+  .menu-btn{
+    display:block;
+    position:absolute;
+    z-index:1000;
+    border:none;
+    background:#fff;
+    color:#444;
+    border-radius:8px;
+    cursor:pointer;
+    
+  }
+
+  /* right section */
+
+  .right-bar{
+    width:100%;
+    padding:10px;
+    background:#f4f7fb;
+  }
+
+  .right-bar h2{
+    margin-left:35px;
+  }
+  .right-bar .status-container hr{
+    display: none;
+  }
+
+  /* top section */
+
+  .right-bar .status-container{
+    height:auto !important;
+    overflow:visible;
+    margin-bottom:18px;
+    background:transparent;
+  }
+
+  .right-bar .status-container h2{
+    font-size:1.5rem;
+    padding-top:8px;
+    color:#1e293b;
+    display: none;
+  }
+
+  /* cards */
+  .status-container .payments-box{
+    flex-direction:column;
+    gap:12px;
+    margin:12px 0;
+    height:auto;
+  }
+
+  .payments-box .total-box,
+  .payments-box .pending-box,
+  .payments-box .cleared-box{
+    width:100%;
+    min-height:85px;
+    padding:14px 16px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .payments-box .total-box h3,
+  .payments-box .pending-box h3,
+  .payments-box .cleared-box h3{
+    font-size:0.9rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:70%;
+    line-height:1.3;
+  }
+
+  .total-box h3 i,
+  .pending-box h3 i,
+  .cleared-box h3 i{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.25);
+    font-size:0.9rem;
+  }
+
+  .payments-box hr{
+    display:none;
+  }
+
+  .total-box p,
+  .pending-box p,
+  .cleared-box p{
+    font-size:1.8rem;
+    font-weight:700;
+    margin:0;
+  }
+
+  /* lower section */
+  .right-bar .down-container{
+    flex-direction:column;
+    height:auto;
+    gap:18px;
+    background:transparent;
+  }
+
+  .down-container .chart-container{
+    width:100%;
+    height:auto;
+    background:white;
+    padding:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .chart-container h1{
+    font-size:1.2rem;
+    margin-bottom:10px;
+    color:#1e293b;
+  }
+
+  #barchart{
+    width:100% !important;
+    height:auto !important;
+  }
+
+  /* upcoming events */
+  .down-container .upcoming-list-container{
+    width:100%;
+    height:auto;
+    background:white;
+    padding:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .upcoming-list-container h2{
+    font-size:1.2rem;
+    color:#1e293b;
+  }
+
+  .events-list{
+    padding:14px 10px;
+    border-bottom:1px solid #edf2f7;
+  }
+
+  .events-list:last-child{
+    border-bottom:none;
+  }
+
+  .events-list .event-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#eef2ff;
+    margin-right:12px;
+  }
+
+  .events-list .event-icon i{
+    color:#4f46e5;
+  }
+
+  .events-list .event-text h3{
+    font-size:1rem;
+    color:#1e293b;
+  }
+
+  .events-list .event-text p{
+    font-size:0.85rem;
+    color:#64748b;
+  }
+
+
+  /* form container */
+
+  .event-creation-container{
+    width:100%;
+    background:#fff;
+    border-radius:18px;
+    padding:12px;
+    
+    margin-bottom:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .event-creation-container h2{
+    font-size:1.5rem;
+    margin-left:30px;
+    color:#1e293b;
+    margin-bottom:10px;
+    padding:0;
+  
+    line-height:30px;
+  }
+
+
+  /* form layout */
+  .event-creation-container form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:5px;
+  }
+
+  /* labels */
+
+  .form-container label{
+    font-size:0.95rem;
+    margin-bottom:6px;
+    color:#334155;
+    font-weight:600;
+    letter-spacing:0.5px;
+  }
+
+  /* inputs */
+  .form-container input{
+    width:100%;
+    height:45px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    background:#f8fafc;
+    padding:0 12px;
+    font-size:0.95rem;
+    letter-spacing:0.5px;
+    font-family:"Poppins", sans-serif;
+  }
+
+  .form-container input:focus{
+    border:1px solid #2563eb;
+    background:#fff;
+  }
+
+  /* submit button */
+  .form-btn{
+    width:100%;
+  }
+
+  .form-btn input{
+    width:100%;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    font-size:1rem;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    letter-spacing:0.5px;
+  }
+
+  .form-btn input[name="create"]{
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+  }
+
+  .form-btn input[name="update"]{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+  }
+
+  /* event list */
+
+  .event-upcoming-list{
+    width:100%;
+    background:#fff;
+    border-radius:18px;
+    margin-top:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    overflow:hidden;
+  }
+
+  .event-upcoming-list h2{
+    font-size:1.3rem;
+    color:#1e293b;
+    margin:0px;
+    text-align: center;
+  }
+  .event-upcoming-list hr{
+    display: none;
+  }
+
+  
+  .upcoming-event-table thead{
+    display:none;
+}
+
+/* table layout */
+.upcoming-event-table table{
+    width:95%;
+    border-collapse:collapse;
+}
+
+.upcoming-event-table tbody{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+
+  .upcoming-event-table table tr{
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .upcoming-event-table table td{
+    border:none;
+    padding:3px 0;
+    font-size:0.9rem;
+    color:#475569;
+    letter-spacing:0.3px;
+  }
+
+  /* event title */
+  .upcoming-event-table table td:nth-child(1){
+    font-size:1.05rem;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:5px;
+  }
+
+  /* action buttons */
+
+  .action{
+    margin-top:8px;
+  }
+
+  table td button{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#f8fafc;
+    margin-right:8px;
+    font-size:1rem;
+  }
+
+  button .fa-pen-to-square{
+    color:#2563eb;
+    margin-right:0;
+  }
+
+  button .fa-trash{
+    color:#ef4444;
+  }
+
+}
+

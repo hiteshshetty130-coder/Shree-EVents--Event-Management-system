@@ -31,6 +31,11 @@ def login_fn():
         username=request.form['username'].strip()
         password=request.form['password'].strip()
 
+        #if empty field kept
+        if username=="" or password=="":
+            error="Please fill in all the details" 
+            return render_template("login.html",error=error)
+
         user=check_user(username,password) #call function in database.py file
         if user:
             session['user']=username

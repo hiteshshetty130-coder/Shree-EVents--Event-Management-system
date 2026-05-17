@@ -1,83 +1,84 @@
 <!-- base file other file inherits this file -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- using jinja format for getting title  -->
-    <title>{% block title %}Dashboard{% endblock %}</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='main.css') }}"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
-    <!-- same nav bar for all the modules so using extends jinja format -->
-    <!-- main container -->
-    <div class="dashboard-container">
-      <!-- nav section -->
-      <div class="left-bar">
-        <!-- heading section logo and header text -->
-        <div class="left-header">
-          <img
-            src="{{url_for('static',filename='images/DOC-20260319-WA0019..png')}}"
-            alt="logo"
-          />
-          <h2>SHREE EVENTS</h2>
-        </div>
-        <!-- nav section with ul and li tags with a tag to navigate to  other section -->
-        <div class="nav-section">
-          <ul>
-            <li>
-              <a href="{{url_for('dashboard.dashboard_fn')}}"
-                ><i class="fa-solid fa-briefcase"></i>Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="{{url_for('events.events_fn')}}"
-                ><i class="fa-solid fa-calendar-days"></i>Events</a
-              >
-            </li>
-            <li>
-              <a href="{{url_for('inventory.inventory_fn')}}"><i class="fa-solid fa-box"></i>inventory</a>
-            </li>
-            <li>
-              <a href="{{url_for('items.items_fn')}}"><i class="fa-solid fa-cart-shopping"></i>Items</a>
-            </li>
-            <li>
-              <a href="{{url_for('payments.payments_fn')}}"><i class="fa-solid fa-credit-card"></i>payments</a>
-            </li>
-            <li>
-              <a href="{{url_for('orders.orders_fn')}}"><i class="fa-solid fa-cart-shopping"></i>Orders</a>
-            </li>
-            <li>
-              <a href="{{url_for('logout')}}"><i class="fa-solid fa-sign-out-alt"></i>logout</a>
-            </li>
-          </ul>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- using jinja format for getting title  -->
+  <title>{% block title %}Dashboard{% endblock %}</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- same nav bar for all the modules so using extends jinja format -->
+  <!-- main container -->
+  <div class="dashboard-container">
+    <!-- nav section -->
+    <div class="left-bar" id="sidebar">
+      <!-- heading section logo and header text -->
+      <div class="left-header">
+        <img src="{{url_for('static',filename='images/DOC-20260319-WA0019..png')}}" alt="logo" />
+        <h2>SHREE EVENTS</h2>
       </div>
-
-      <!-- right side bar is dynamic it changes so using content block to write the code -->
-      <!-- content section -->
-      <div class="right-bar">{% block content %}{% endblock %}</div>
+      <!-- nav section with ul and li tags with a tag to navigate to  other section -->
+      <div class="nav-section">
+        <ul>
+          <li>
+            <a href="{{url_for('dashboard.dashboard_fn')}}"><i class="fa-solid fa-briefcase"></i>Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="{{url_for('events.events_fn')}}"><i class="fa-solid fa-calendar-days"></i>Events</a>
+          </li>
+          <li>
+            <a href="{{url_for('inventory.inventory_fn')}}"><i class="fa-solid fa-box"></i>inventory</a>
+          </li>
+          <li>
+            <a href="{{url_for('items.items_fn')}}"><i class="fa-solid fa-cart-shopping"></i>Items</a>
+          </li>
+          <li>
+            <a href="{{url_for('payments.payments_fn')}}"><i class="fa-solid fa-credit-card"></i>payments</a>
+          </li>
+          <li>
+            <a href="{{url_for('orders.orders_fn')}}"><i class="fa-solid fa-cart-shopping"></i>Orders</a>
+          </li>
+          <li>
+            <a href="{{url_for('logout')}}"><i class="fa-solid fa-sign-out-alt"></i>logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    {% block scripts %}{% endblock %}
-  </body>
+
+    <!-- right side bar is dynamic it changes so using content block to write the code -->
+    <!-- content section -->
+    <div class="right-bar" id="right-bar">
+      <div class="top-header">
+
+        <button class="menu-btn" id="menuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h2>{% block heading %}{% endblock %}</h2>
+
+      </div>
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+  {% block scripts %}{% endblock %}
+  <script src="{{url_for('static',filename='script.js')}}"></script>
+</body>
+
 </html>

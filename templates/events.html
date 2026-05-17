@@ -1,60 +1,88 @@
-{% extends "base.html" %} {% block title %}EVENTS{% endblock %} {% block content
-%}
+{% extends "base.html" %}
 
-<!-- first main container -->
+{% block title %}EVENTS{% endblock %}
+
+{% block heading %}
+Events
+{% endblock %}
+
+{% block content %}
+
+<!-- CREATE / EDIT EVENT FORM -->
 <div class="event-creation-container">
-  <h2>
-    <i class="fa-solid fa-pen" style="margin-right: 5px; font-size: 18px; margin-left: 5px"></i>Create/Edit Event
-  </h2>
-  <hr />
- <!-- form to get data AND DISPLAY IN GRID -->
-    <form method="post">
-      <div class="form-container">
-        <label>Event Name</label>
-        <input type="text" name="eventname" value="{{edit_data.name if edit_data else ''}}" required />
-      </div>
-      <div class="form-container">
-        <label>Date</label>
-        <input type="date" name="date" value="{{edit_data.date if edit_data else ''}}" required />
-      </div>
-      <div class="form-container">
-        <label>Time</label>
-        <input type="time" name="time" value="{{edit_data.time if edit_data else ''}}" required />
-      </div>
-      <div class="form-container">
-        <label>Place</label>
-        <input type="text" name="place" value="{{edit_data.place if edit_data else ''}}" required />
-      </div>
-      <div class="form-container">
-        <label>Customer Name</label>
-        <input type="text" name="cust" value="{{edit_data.cust if edit_data else ''}}" required />
-      </div>
-      <!-- HIDDEN BECAUSE IT IS NEEDED ONLY WHILE UPDATE OR DELETE -->
-      <div class="form-container">
-                <label>Phone Number</label>
-        <input type="tel" name="phone" maxlength="10" pattern="[0-9]{10}" value="{{edit_data.phone if edit_data else ''}}" required>
-        <input type="hidden" name="id" value="{{edit_data.id if edit_data else ''}}" required />
-      </div>
 
-      <!-- buttons if clicked on edit only then update btn will appear -->
-      <div class="form-btn">
-        {% if edit_data %}
-        <input type="submit" value="Update Event" name="update" />
-        {% else %}
-        <input type="submit" value="Create Event" name="create" />
-        {% endif %}
-      </div>
-    </form>
+  <h2>
+    <i class="fa-solid fa-pen"
+       style="margin-right: 5px; font-size: 18px; margin-left: 5px"></i>
+    Create/Edit Event
+  </h2>
+
+  <hr />
+
+  <form method="post">
+
+    <div class="form-container">
+      <label>Event Name</label>
+      <input type="text" name="eventname"
+        value="{{edit_data.name if edit_data else ''}}" required />
+    </div>
+
+    <div class="form-container">
+      <label>Date</label>
+      <input type="date" name="date"
+        value="{{edit_data.date if edit_data else ''}}" required />
+    </div>
+
+    <div class="form-container">
+      <label>Time</label>
+      <input type="time" name="time"
+        value="{{edit_data.time if edit_data else ''}}" required />
+    </div>
+
+    <div class="form-container">
+      <label>Place</label>
+      <input type="text" name="place"
+        value="{{edit_data.place if edit_data else ''}}" required />
+    </div>
+
+    <div class="form-container">
+      <label>Customer Name</label>
+      <input type="text" name="cust"
+        value="{{edit_data.cust if edit_data else ''}}" required />
+    </div>
+
+    <div class="form-container">
+      <label>Phone Number</label>
+      <input type="tel" name="phone" maxlength="10"
+        pattern="[0-9]{10}"
+        value="{{edit_data.phone if edit_data else ''}}" required>
+
+      <input type="hidden" name="id"
+        value="{{edit_data.id if edit_data else ''}}" />
+    </div>
+
+    <div class="form-btn">
+      {% if edit_data %}
+      <input type="submit" value="Update Event" name="update" />
+      {% else %}
+      <input type="submit" value="Create Event" name="create" />
+      {% endif %}
+    </div>
+
+  </form>
 </div>
 
-<!-- list container -->
+
+<!-- EVENT LIST -->
 <div class="event-upcoming-list">
-  <h2>Events</h2>
+
+  <h2>Events List</h2>
+
   <hr />
-  <!-- conatiner for table  -->
+
   <div class="upcoming-event-table">
     <table>
-      <!-- table headers  -->
+
       <thead>
         <tr>
           <th>Event</th>
@@ -66,7 +94,7 @@
           <th></th>
         </tr>
       </thead>
-      <!-- body data is inserted using jinja for loop -->
+
       <tbody>
         {% for e in list_data %}
         <tr>
@@ -76,7 +104,7 @@
           <td>{{e[4]}}</td>
           <td>{{e[6]}}</td>
           <td>{{e[5]}}</td>
-          <!-- hidden inputs are used because the data from the for are needed for edit -->
+
           <td class="action">
             <form method="post">
               <input type="hidden" name="id" value="{{e[0]}}" />
@@ -87,17 +115,23 @@
               <input type="hidden" name="cust" value="{{e[5]}}" />
               <input type="hidden" name="phone" value="{{e[6]}}" />
 
+              <button type="submit" name="edit">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
 
-              <button type="submit" name="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-              <button type="submit" name="delete" onclick="return confirm('Are you Sure you want to Delete This event?')">
+              <button type="submit" name="delete"
+                onclick="return confirm('Are you sure you want to delete this event?')">
                 <i class="fa-solid fa-trash"></i>
               </button>
+
             </form>
           </td>
         </tr>
         {% endfor %}
       </tbody>
+
     </table>
   </div>
 </div>
+
 {% endblock %}
