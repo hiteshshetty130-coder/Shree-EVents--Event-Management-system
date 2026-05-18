@@ -4,6 +4,8 @@
   padding: 0;
 }
 
+
+/* ===============LOGIN PAGE STYLE=============================== */
 /* login page styling */
 .container {
   width: 100%;
@@ -159,59 +161,72 @@ input:focus {
     height: auto;
     padding: 0;
   }
+
   .login-box h1 {
     font-size: 1.5em;
     text-align: center;
   }
+
   .login-box p {
     font-size: 13px;
     text-align: center;
   }
+
   .submit {
     height: 40px;
   }
+
   .login-info {
     padding: 10px;
     height: auto;
   }
+
   .login-info p {
     font-size: 12px;
     line-height: 18px;
   }
 }
+
 /* Mobile */
 @media (max-width: 480px) {
   .container {
     padding: 15px;
   }
+
   .login-box {
     width: 100%;
     border-radius: 12px;
   }
+
   .login-image img {
     width: 75px;
     height: 75px;
   }
+
   .login-box h1 {
     font-size: 1.3em;
     letter-spacing: 1px;
   }
+
   input {
     width: 90%;
     font-size: 14px;
     padding: 12px;
   }
+
   .submit {
     width: 90%;
     height: 42px;
     font-size: 0.95em;
   }
+
   .login-info p {
     font-size: 11px;
   }
 }
 
-/* -------------------------------------------------------------------------------------------- */
+
+/* ========================BASE NAV BAR STYLE================================ */
 /* base file styling and dashboard file styling */
 /* main container full */
 .dashboard-container {
@@ -303,17 +318,16 @@ input:focus {
   background-color: #e2e2f1;
   display: flex;
   flex-direction: column;
-  position:relative;
+  position: relative;
 }
 
 /* hide button in desktop */
 .top-header {
-  
   width: 100%;
   gap: 10px;
   background: #fff;
   padding: 10px 15px;
- margin-bottom: 10px;
+  margin-bottom: 10px;
   border-radius: 8px;
   display: none;
 }
@@ -330,6 +344,97 @@ input:focus {
   font-family: "Roboto Slab", serif;
 }
 
+@media(max-width:768px) {
+
+  body {
+    background: #f4f7fb;
+    overflow-x: hidden;
+  }
+
+  .dashboard-container {
+    position: relative;
+    display: block;
+    height: auto;
+  }
+
+  /* sidebar */
+  .left-bar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100vh;
+    background: white;
+    z-index: 999;
+    transition: 0.4s ease;
+    margin: 0;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .left-bar.show-sidebar {
+    left: 0;
+  }
+
+  .left-header {
+    justify-content: flex-start !important;
+    padding: 10px 0;
+  }
+
+  .left-header h2 {
+    font-size: 1em;
+    font-family: "Roboto Slab", serif;
+  }
+
+  .left-bar .nav-section {
+    margin-top: 20px;
+  }
+
+  .nav-section ul {
+    padding: 0;
+  }
+
+  .nav-section ul li {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: none;
+  }
+
+  .nav-section ul li:hover {
+    background: #f1f5f9;
+    border-left: none;
+  }
+
+  .nav-section ul li a {
+    font-size: 1rem;
+    color: #334155;
+  }
+
+  .nav-section ul li i {
+    display: none;
+  }
+
+  .top-header {
+    display: flex;
+    align-items: center;
+  }
+
+  /* menu button */
+  .menu-btn {
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    border: none;
+    background: #fff;
+    color: #444;
+    border-radius: 8px;
+    cursor: pointer;
+
+  }
+}
+
+/* ===============================DASHBOARD PAGE STYLE===================================== */
 /* top three box container inside boxes style */
 .right-bar .status-container {
   width: 100%;
@@ -369,8 +474,8 @@ hr {
   width: 31%;
   height: 100%;
   padding: 1%;
-  background: linear-gradient(135deg,#ff9966,#ff5e62);
-  
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -382,7 +487,7 @@ hr {
 .payments-box .pending-box {
   width: 31%;
   height: 100%;
-  background: linear-gradient(135deg,#36d1dc,#5b86e5);
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
   padding: 1%;
   display: flex;
   flex-direction: column;
@@ -395,7 +500,7 @@ hr {
 .payments-box .cleared-box {
   width: 31%;
   height: 100%;
-background: linear-gradient(135deg,#56ab2f,#a8e063);
+  background: linear-gradient(135deg, #56ab2f, #a8e063);
   padding: 1%;
   display: flex;
   flex-direction: column;
@@ -535,7 +640,172 @@ background: linear-gradient(135deg,#56ab2f,#a8e063);
   font-family: "Roboto Slab", serif;
 }
 
-/* ------------------------------------------------------------------------------------------------ */
+@media(max-width:768px) {
+
+
+  /* right section */
+
+  .right-bar {
+    width: 100%;
+    padding: 10px;
+    background: #f4f7fb;
+  }
+
+  .right-bar h2 {
+    margin-left: 35px;
+  }
+
+  .right-bar .status-container hr {
+    display: none;
+  }
+
+  /* top section */
+
+  .right-bar .status-container {
+    height: auto !important;
+    overflow: visible;
+    margin-bottom: 18px;
+    background: transparent;
+  }
+
+  .right-bar .status-container h2 {
+    font-size: 1.5rem;
+    padding-top: 8px;
+    color: #1e293b;
+    display: none;
+  }
+
+  /* cards */
+  .status-container .payments-box {
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0;
+    height: auto;
+  }
+
+  .payments-box .total-box,
+  .payments-box .pending-box,
+  .payments-box .cleared-box {
+    width: 100%;
+    min-height: 85px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .payments-box .total-box h3,
+  .payments-box .pending-box h3,
+  .payments-box .cleared-box h3 {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+    line-height: 1.3;
+  }
+
+  .total-box h3 i,
+  .pending-box h3 i,
+  .cleared-box h3 i {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.9rem;
+  }
+
+  .payments-box hr {
+    display: none;
+  }
+
+  .total-box p,
+  .pending-box p,
+  .cleared-box p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* lower section */
+  .right-bar .down-container {
+    flex-direction: column;
+    height: auto;
+    gap: 18px;
+    background: transparent;
+  }
+
+  .down-container .chart-container {
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .chart-container h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #1e293b;
+  }
+
+  #barchart {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* upcoming events */
+  .down-container .upcoming-list-container {
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .upcoming-list-container h2 {
+    font-size: 1.2rem;
+    color: #1e293b;
+  }
+
+  .events-list {
+    padding: 14px 10px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  .events-list:last-child {
+    border-bottom: none;
+  }
+
+  .events-list .event-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: #eef2ff;
+    margin-right: 12px;
+  }
+
+  .events-list .event-icon i {
+    color: #4f46e5;
+  }
+
+  .events-list .event-text h3 {
+    font-size: 1rem;
+    color: #1e293b;
+  }
+
+  .events-list .event-text p {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+}
+
+/* ==================================EVENTS PAGE STYLE================================================ */
 /* events page styling */
 /* event creating form conatiner styling */
 .event-creation-container {
@@ -711,7 +981,183 @@ button .fa-trash {
   background: transparent;
 }
 
-/* ----------------------------------------------------------------------------------------------- */
+@media(max-width:768px) {
+
+  /* form container */
+  .event-creation-container {
+    width: 100%;
+    background: #fff;
+    border-radius: 18px;
+    padding: 12px;
+
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .event-creation-container h2 {
+    font-size: 1.5rem;
+    margin-left: 30px;
+    color: #1e293b;
+    margin-bottom: 10px;
+    padding: 0;
+
+    line-height: 30px;
+  }
+
+  /* form layout */
+  .event-creation-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 5px;
+  }
+
+  /* labels */
+  .form-container label {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #334155;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* inputs */
+  .form-container input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #dbe2ea;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 0 12px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .form-container input:focus {
+    border: 1px solid #2563eb;
+    background: #fff;
+  }
+
+  /* submit button */
+  .form-btn {
+    width: 100%;
+  }
+
+  .form-btn input {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+
+  .form-btn input[name="create"] {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+  }
+
+  .form-btn input[name="update"] {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+  }
+
+  /* event list */
+
+  .event-upcoming-list {
+    width: 100%;
+    background: #fff;
+    border-radius: 18px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .event-upcoming-list h2 {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin: 0px;
+    text-align: center;
+  }
+
+  .event-upcoming-list hr {
+    display: none;
+  }
+
+
+  .upcoming-event-table thead {
+    display: none;
+  }
+
+  /* table layout */
+  .upcoming-event-table table {
+    width: 95%;
+    border-collapse: collapse;
+  }
+
+  .upcoming-event-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+
+  .upcoming-event-table table tr {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .upcoming-event-table table td {
+    border: none;
+    padding: 3px 0;
+    font-size: 0.9rem;
+    color: #475569;
+    letter-spacing: 0.3px;
+  }
+
+  /* event title */
+  .upcoming-event-table table td:nth-child(1) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 5px;
+  }
+
+  /* action buttons */
+
+  .action {
+    margin-top: 8px;
+  }
+
+  table td button {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #f8fafc;
+    margin-right: 8px;
+    font-size: 1rem;
+  }
+
+  button .fa-pen-to-square {
+    color: #2563eb;
+    margin-right: 0;
+  }
+
+  button .fa-trash {
+    color: #ef4444;
+  }
+}
+
+
+
+/* ======================================INVENTORY PAGE STYLE======================================== */
 /* inventory module */
 /* main container */
 .main-inventory-box {
@@ -730,7 +1176,7 @@ button .fa-trash {
   background-color: #fff;
 }
 
-.inventory-header h2 {
+.inventory-header h3 {
   font-family: "Roboto Slab", serif;
   letter-spacing: 1px;
   font-size: 24px;
@@ -852,14 +1298,15 @@ button .fa-trash {
   overflow-y: hidden;
 }
 
-.allocated-inventory-container h2 {
+.allocated-inventory-container h3 {
   padding: 10px;
   font-size: 20px;
   letter-spacing: 1px;
   font-family: "Roboto Slab", serif;
   cursor: pointer;
 }
-.events-cont{
+
+.events-cont {
   width: 100%;
   height: 90%;
   overflow: auto;
@@ -939,11 +1386,6 @@ button .fa-trash {
   width: 98%;
   padding: 20px 0;
   color: black;
-}
-
-.inventory table thead td,
-.inventory table tbody td {
-  border: 1px solid black;
 }
 
 /* delete btn style */
@@ -1303,7 +1745,241 @@ button .fa-trash {
   outline: none;
 }
 
-/* ----------------------------------------------------------------------------------------------------- */
+.no-allocated-events {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+/* =========================
+   MOBILE HEADER UPGRADE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .main-inventory-box {
+    background-color: #f4f7fb;
+  }
+
+  /* header becomes a floating card */
+  .inventory-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+
+  /* title styling */
+  .inventory-header h3 {
+    display: none;
+  }
+
+
+  /* button becomes FAB-style (modern app feel) */
+  .inventory-header button {
+    width: 180px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    white-space: nowrap;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .inventory-events-list {
+    overflow-x: hidden;
+    margin-bottom: 10px;
+  }
+
+  .inventory-events-list hr {
+    display: none;
+  }
+
+  /* keep section heading visible */
+  .in-child-header {
+    padding: 10px;
+
+  }
+
+  .inventory-events-list {
+    min-height: 150px;
+  }
+
+  /* hide ONLY table header row */
+  .inventory-table-container thead {
+    display: none;
+  }
+
+  /* remove table structure but NOT headings */
+  .inventory-table-container table,
+  .inventory-table-container tbody,
+  .inventory-table-container tr,
+  .inventory-table-container td {
+    display: block;
+    width: 99%;
+  }
+
+  /* CARD STYLE */
+  .inventory-table-container tbody tr {
+    background: #fff;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 16px;
+
+    text-align: center;
+  }
+
+  /* CLEAN TEXT ONLY */
+  .inventory-table-container table tbody td {
+    border: none;
+    padding: 4px 0;
+    font-size: 15px;
+    text-align: center;
+    height: 30px;
+  }
+
+  /* button */
+  .allocate_btn {
+    width: 85%;
+    padding: 12px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  }
+
+  .allocated-inventory-container {
+    height: auto;
+    border-radius: 14px;
+    margin-top: 15px;
+    overflow: hidden;
+  }
+
+  .allocated-inventory-container h3 {
+    padding: 14px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .events-cont {
+    height: auto;
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  /* EVENT CARD */
+  .allocated-inventory-container .events-cont .event {
+    width: 100%;
+    margin-left: 0px;
+    padding: 12px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  /* HEADER */
+  .event-header {
+    align-items: center;
+  }
+
+  .event-header p {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .event-header .side {
+    font-size: 18px;
+  }
+
+  /* TABLE SCROLL */
+  .inventory {
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+
+  .inventory table {
+    min-width: 500px;
+    border-collapse: collapse;
+    background: #fff;
+  }
+
+  /* TABLE HEAD */
+  .inventory table thead td {
+    background: #eef2ff;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+  }
+
+
+
+  /* TABLE BODY */
+  .inventory table tbody td {
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    border: none;
+  }
+
+  /* DELETE BUTTON */
+  .inventory table td button {
+    width: 70px;
+    height: 28px;
+    font-size: 11px;
+    border-radius: 8px;
+    border: none;
+    background: #ef4444;
+    color: white;
+  }
+
+  /* TOTAL AMOUNT */
+  .inventory p {
+    text-align: right !important;
+    padding-right: 10px !important;
+    padding-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  /* SCROLLBAR */
+  .inventory::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .inventory::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+  }
+
+  .pop-up-container .pop-up-form {
+    width: 90%;
+  }
+
+  .no-events-msg {
+    text-align: left;
+    vertical-align: top;
+    padding-top: 15px;
+    padding-left: 15px;
+  }
+
+}
+
+/*====================================PAYMENTS PAGE STYLE=====================================*/
 /* payments main container */
 .payment-content {
   width: 100%;
@@ -1419,7 +2095,10 @@ button .fa-trash {
   background: #c7c7c7;
   border-radius: 10px;
 }
-/* ----------------------------------------------------------------------------------------------------- */
+
+
+
+/*=========================================ORDERS PAGE STYLE=============================================== */
 /* orders module */
 .orders-content {
   width: 100%;
@@ -1466,7 +2145,7 @@ button .fa-trash {
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  
+
 }
 
 /* table header */
@@ -1532,520 +2211,145 @@ button .fa-trash {
   background: #c7c7c7;
   border-radius: 10px;
 }
-/* --------------------------------------------------------------------------------------- */
+
+
+
+
+/*========================================ITEMS PAGE STYLE=========================================*/
 .inventory-wrapper {
-    height: 100vh;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    font-family: Arial, sans-serif;
+  height: 100vh;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
 /* Title styling */
 .page-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: #222;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #222;
 }
 
 /* SCROLL ONLY HERE */
 .inventory-container {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 8px;
-
-    /* smooth scroll feel */
-    scroll-behavior: smooth;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  /* smooth scroll feel */
+  scroll-behavior: smooth;
 }
 
 /* Modern card design */
 .inventory-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    background: #ffffff;
-    padding: 18px 20px;
-    margin-bottom: 12px;
-
-    border-radius: 12px;
-    border: 1px solid #eee;
-
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-
-    transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
 }
 
 /* hover effect */
 .inventory-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 /* Text styling */
 .inventory-info h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
 }
 
 .inventory-info p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #666;
+  margin: 4px 0;
+  font-size: 14px;
+  color: #666;
 }
 
 /* Actions */
 .inventory-actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 /* Buttons */
 .inventory-actions a {
-    text-decoration: none;
-    padding: 7px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-
-    transition: 0.2s ease;
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s ease;
 }
 
 
 /* Delete button */
 .delete-btn {
-    background: #f44336;
-    color: white;
+  background: #f44336;
+  color: white;
+}
+
+.edit-item-btn {
+  background-color: blue;
+  color: white;
+  width: 80px;
+  border-radius: 6px;
 }
 
 .delete-btn:hover {
-    background: #d9362b;
-}
-@media(max-width:768px){
-
-  body{
-    background:#f4f7fb;
-    overflow-x:hidden;
-  }
-
-  .dashboard-container{
-    position:relative;
-    display:block;
-    height:auto;
-  }
-
-  /* sidebar */
-  .left-bar{
-    position:fixed;
-    top:0;
-    left:-100%;
-    width:50%;
-    height:100vh;
-    background:white;
-    z-index:999;
-    transition:0.4s ease;
-    margin:0;
-    padding:15px;
-    box-shadow:0 0 15px rgba(0,0,0,0.08);
-  }
-
-  .left-bar.show-sidebar{
-    left:0;
-  }
-
-  .left-header{
-    justify-content:flex-start !important;
-    padding:10px 0;
-  }
-
-  .left-header h2{
-    font-size:1em;
-    font-family:"Roboto Slab", serif;
-  }
-
-  .left-bar .nav-section{
-    margin-top:20px;
-  }
-
-  .nav-section ul{
-    padding:0;
-  }
-
-  .nav-section ul li{
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:10px;
-    border-left:none;
-  }
-
-  .nav-section ul li:hover{
-    background:#f1f5f9;
-    border-left:none;
-  }
-
-  .nav-section ul li a{
-    font-size:1rem;
-    color:#334155;
-  }
-
-  .nav-section ul li i{
-    display:none;
-  }
-  .top-header{ 
-    display: flex;
-    align-items: center;
-  }
-
-  /* menu button */
-  .menu-btn{
-    display:block;
-    position:absolute;
-    z-index:1000;
-    border:none;
-    background:#fff;
-    color:#444;
-    border-radius:8px;
-    cursor:pointer;
-    
-  }
-
-  /* right section */
-
-  .right-bar{
-    width:100%;
-    padding:10px;
-    background:#f4f7fb;
-  }
-
-  .right-bar h2{
-    margin-left:35px;
-  }
-  .right-bar .status-container hr{
-    display: none;
-  }
-
-  /* top section */
-
-  .right-bar .status-container{
-    height:auto !important;
-    overflow:visible;
-    margin-bottom:18px;
-    background:transparent;
-  }
-
-  .right-bar .status-container h2{
-    font-size:1.5rem;
-    padding-top:8px;
-    color:#1e293b;
-    display: none;
-  }
-
-  /* cards */
-  .status-container .payments-box{
-    flex-direction:column;
-    gap:12px;
-    margin:12px 0;
-    height:auto;
-  }
-
-  .payments-box .total-box,
-  .payments-box .pending-box,
-  .payments-box .cleared-box{
-    width:100%;
-    min-height:85px;
-    padding:14px 16px;
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 4px 12px rgba(0,0,0,0.06);
-  }
-
-  .payments-box .total-box h3,
-  .payments-box .pending-box h3,
-  .payments-box .cleared-box h3{
-    font-size:0.9rem;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    width:70%;
-    line-height:1.3;
-  }
-
-  .total-box h3 i,
-  .pending-box h3 i,
-  .cleared-box h3 i{
-    width:34px;
-    height:34px;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(255,255,255,0.25);
-    font-size:0.9rem;
-  }
-
-  .payments-box hr{
-    display:none;
-  }
-
-  .total-box p,
-  .pending-box p,
-  .cleared-box p{
-    font-size:1.8rem;
-    font-weight:700;
-    margin:0;
-  }
-
-  /* lower section */
-  .right-bar .down-container{
-    flex-direction:column;
-    height:auto;
-    gap:18px;
-    background:transparent;
-  }
-
-  .down-container .chart-container{
-    width:100%;
-    height:auto;
-    background:white;
-    padding:16px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.05);
-  }
-
-  .chart-container h1{
-    font-size:1.2rem;
-    margin-bottom:10px;
-    color:#1e293b;
-  }
-
-  #barchart{
-    width:100% !important;
-    height:auto !important;
-  }
-
-  /* upcoming events */
-  .down-container .upcoming-list-container{
-    width:100%;
-    height:auto;
-    background:white;
-    padding:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.05);
-  }
-
-  .upcoming-list-container h2{
-    font-size:1.2rem;
-    color:#1e293b;
-  }
-
-  .events-list{
-    padding:14px 10px;
-    border-bottom:1px solid #edf2f7;
-  }
-
-  .events-list:last-child{
-    border-bottom:none;
-  }
-
-  .events-list .event-icon{
-    width:45px;
-    height:45px;
-    border-radius:12px;
-    background:#eef2ff;
-    margin-right:12px;
-  }
-
-  .events-list .event-icon i{
-    color:#4f46e5;
-  }
-
-  .events-list .event-text h3{
-    font-size:1rem;
-    color:#1e293b;
-  }
-
-  .events-list .event-text p{
-    font-size:0.85rem;
-    color:#64748b;
-  }
-
-
-  /* form container */
-
-  .event-creation-container{
-    width:100%;
-    background:#fff;
-    border-radius:18px;
-    padding:12px;
-    
-    margin-bottom:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.05);
-  }
-
-  .event-creation-container h2{
-    font-size:1.5rem;
-    margin-left:30px;
-    color:#1e293b;
-    margin-bottom:10px;
-    padding:0;
-  
-    line-height:30px;
-  }
-
-
-  /* form layout */
-  .event-creation-container form{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    padding:5px;
-  }
-
-  /* labels */
-
-  .form-container label{
-    font-size:0.95rem;
-    margin-bottom:6px;
-    color:#334155;
-    font-weight:600;
-    letter-spacing:0.5px;
-  }
-
-  /* inputs */
-  .form-container input{
-    width:100%;
-    height:45px;
-    border:1px solid #dbe2ea;
-    border-radius:12px;
-    background:#f8fafc;
-    padding:0 12px;
-    font-size:0.95rem;
-    letter-spacing:0.5px;
-    font-family:"Poppins", sans-serif;
-  }
-
-  .form-container input:focus{
-    border:1px solid #2563eb;
-    background:#fff;
-  }
-
-  /* submit button */
-  .form-btn{
-    width:100%;
-  }
-
-  .form-btn input{
-    width:100%;
-    height:48px;
-    border:none;
-    border-radius:12px;
-    font-size:1rem;
-    font-weight:600;
-    color:#fff;
-    cursor:pointer;
-    letter-spacing:0.5px;
-  }
-
-  .form-btn input[name="create"]{
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
-  }
-
-  .form-btn input[name="update"]{
-    background:linear-gradient(135deg,#16a34a,#22c55e);
-  }
-
-  /* event list */
-
-  .event-upcoming-list{
-    width:100%;
-    background:#fff;
-    border-radius:18px;
-    margin-top:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.05);
-    overflow:hidden;
-  }
-
-  .event-upcoming-list h2{
-    font-size:1.3rem;
-    color:#1e293b;
-    margin:0px;
-    text-align: center;
-  }
-  .event-upcoming-list hr{
-    display: none;
-  }
-
-  
-  .upcoming-event-table thead{
-    display:none;
+  background: #d9362b;
 }
 
-/* table layout */
-.upcoming-event-table table{
-    width:95%;
-    border-collapse:collapse;
+.edit-container {
+  display: flex;
+  gap: 10px;
 }
 
-.upcoming-event-table tbody{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+.edit-container .save-btn {
+  flex: 1;
+  padding: 5px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-
-  .upcoming-event-table table tr{
-    display:flex;
-    flex-direction:column;
-    background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:14px;
-    padding:14px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.04);
-  }
-
-  .upcoming-event-table table td{
-    border:none;
-    padding:3px 0;
-    font-size:0.9rem;
-    color:#475569;
-    letter-spacing:0.3px;
-  }
-
-  /* event title */
-  .upcoming-event-table table td:nth-child(1){
-    font-size:1.05rem;
-    font-weight:700;
-    color:#111827;
-    margin-bottom:5px;
-  }
-
-  /* action buttons */
-
-  .action{
-    margin-top:8px;
-  }
-
-  table td button{
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    background:#f8fafc;
-    margin-right:8px;
-    font-size:1rem;
-  }
-
-  button .fa-pen-to-square{
-    color:#2563eb;
-    margin-right:0;
-  }
-
-  button .fa-trash{
-    color:#ef4444;
-  }
-
+.edit-container .cancel-btn {
+  flex: 1;
+  padding: 5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
+.no-inventory {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-payments {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-payments p {
+  padding: 50px;
+  border: 1px solid black;
+}

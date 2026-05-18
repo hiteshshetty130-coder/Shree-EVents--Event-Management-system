@@ -67,10 +67,12 @@ const popupform=document.getElementById('popupform');
 openbtn.addEventListener('click',()=>{
     popupform.style.display="flex";
     
+    
 })
 popupform.addEventListener('click',(e)=>{
     if(e.target==popupform){
         popupform.style.display="none";
+
     }
 })
 
@@ -83,11 +85,9 @@ const eventInput = document.querySelector('#popupformallocate input[name="event_
 allocate_btn.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const eventId = btn.getAttribute('data-id'); 
-        eventInput.value = eventId; 
-        popupformallocate.style.display = "flex";
+        const eventId = btn.getAttribute('data-id');
+        window.location.href = '/inventory?event_id=' + eventId;
     });
-    
 });
 
 document.querySelectorAll('.inventory-action').forEach(card=>{
@@ -112,6 +112,7 @@ window.location.href="/inventory?event_id="+eventid;
 const exit=document.getElementById('exit');
 exit.addEventListener("click",()=>{
 popupformallocate.style.display="none";
+
 })
 
 const exit_inven=document.getElementById('exit-pop');

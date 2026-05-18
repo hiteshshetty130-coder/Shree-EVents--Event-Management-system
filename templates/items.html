@@ -8,7 +8,7 @@
   <h2 class="page-title">Available Inventory</h2>
 
   <div class="inventory-container">
-
+    {% if inventories %}
     {% for item in inventories %}
     <div class="inventory-card">
 
@@ -19,14 +19,80 @@
       </div>
 
       <div class="inventory-actions">
+        <button class="edit-item-btn" 
+                data-id="{{ item[0] }}" 
+                data-name="{{ item[1] }}" 
+                data-qty="{{ item[2] }}" 
+                data-price="{{ item[3] }}">Edit</button>
         <a href="{{url_for('items.delete_item',item_id=item[0])}}" class="delete-btn"
            onclick="return confirm('Are you sure?')">Delete</a>
       </div>
 
     </div>
     {% endfor %}
-
+    {% else %}
+    <div class="no-inventory">
+      <p style="font-size: 22px; color: #666;">No Items Added😥</p>
+    </div>
+    {% endif %}
   </div>
 </div>
 
+<!-- edit popup -->
+<div class="pop-up-container" id="editPopup">
+  <div class="pop-up-form">
+    <h3 style="margin-top:20px;">Edit Inventory Item</h3>
+    <form method="post" action="/items/update">
+      <input type="hidden" name="item_id" id="edit_item_id" />
+
+      
+
+      <div class="pop-up-input">
+          <p>Item name :</p>
+          <input type="text" name="item_name" id="edit_item_name" placeholder="Enter the Item name...." required />
+        </div>
+        <div class="pop-up-input">
+          <p>Quantity :</p>
+          <input type="number" name="item_quantity" id="edit_item_qty" placeholder="Enter Available Quantity..." min="1" required />
+        </div>
+        <div class="pop-up-input">
+          <p>Item Price :</p>
+          <input type="number" name="item_price" id="edit_item_price" placeholder="Enter the Item Price...." min="1" required />
+        </div>
+
+      <div class="edit-container">
+        <button type="submit" class="save-btn" >Save</button>
+        <button type="button" class="cancel-btn" id="closeEditPopup" >Cancel</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const editPopup = document.getElementById('editPopup');
+
+  document.querySelectorAll('.edit-item-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('edit_item_id').value = btn.getAttribute('data-id');
+      document.getElementById('edit_item_name').value = btn.getAttribute('data-name');
+      document.getElementById('edit_item_qty').value = btn.getAttribute('data-qty');
+      document.getElementById('edit_item_price').value = btn.getAttribute('data-price');
+      editPopup.style.display = 'flex';
+    });
+  });
+
+  document.getElementById('closeEditPopup').addEventListener('click', () => {
+    editPopup.style.display = 'none';
+  });
+
+  editPopup.addEventListener('click', (e) => {
+    if (e.target === editPopup) {
+      editPopup.style.display = 'none';
+    }
+  });
+</script>
 {% endblock %}

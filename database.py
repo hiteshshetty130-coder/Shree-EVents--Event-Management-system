@@ -3,11 +3,10 @@ import datetime
 from flask import flash
 
 def get_connection():
-    con=sqlite3.connect("database.db",timeout=30,check_same_thread=False) #connect to database and create a cursor to run commands
+    con=sqlite3.connect("database.db",timeout=30,check_same_thread=False)
     return con
 
 def init_db():
-#create a login table and insert values because login details is provided to customer
     con=get_connection()
     cursor=con.cursor()
 
@@ -27,19 +26,15 @@ def init_db():
                 status TEXT DEFAULT 'pending',
                 event_status TEXT DEFAULT 'upcoming',
                 phone_number INTEGER NOT NULL
-
                 )""")
 
-
-
-
-    # inevntory item adding table
+    # inventory item adding table
     cursor.execute(""" CREATE TABLE IF NOT EXISTS inventory(item_id INTEGER PRIMARY KEY AUTOINCREMENT,
                    item_name TEXT UNIQUE NOT NULL,
                    item_quantity INTEGER NOT NULL,
                    item_price INTEGER NOT NULL)""")
 
-    # invnetory allocation table with data coming from joins
+    # inventory allocation table
     cursor.execute(""" CREATE TABLE IF NOT EXISTS allocation(id INTEGER PRIMARY KEY AUTOINCREMENT,
                    event_id INTEGER,
                    item_id INTEGER,
@@ -91,7 +86,7 @@ def dashboard_total_events():
     con.close()
     return total_events
 
-# upcming evevnts with date wise
+# upcoming events date wise
 def dashboard_upcoming_data():
     con=get_connection()
     cursor=con.cursor()
@@ -109,25 +104,25 @@ def charts_data():
     data=cursor.fetchall()
     return data
 
-# event creation data
+# event creation
 def create_events(event_name,date,time,place,cust,phone_number):
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("INSERT INTO events(event_name,event_date,event_time,place,cust,phone_number)VALUES(?,?,?,?,?,?)",(event_name, date, time, place, cust,phone_number))
+    cursor.execute("INSERT INTO events(event_name,event_date,event_time,place,cust,phone_number)VALUES(?,?,?,?,?,?)",(event_name,date,time,place,cust,phone_number))
     con.commit()
     con.close()
 
-# events list data
+# events list
 def events_list():
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("SELECT event_id,event_name,event_date,event_time,place,cust,phone_number FROM events ORDER BY event_id DESC")
+    cursor.execute("SELECT event_id,event_name,event_date,event_time,place,cust,phone_number FROM events WHERE event_date>=DATE('now') ORDER BY event_id DESC")
     events_li=cursor.fetchall()
     con.commit()
     con.close()
     return events_li
 
-# allocate inventory evnets list with status pending
+# events list for inventory allocation (pending only)
 def events_list_in():
     con=get_connection()
     cursor=con.cursor()
@@ -137,31 +132,16 @@ def events_list_in():
     con.close()
     return events_li
 
-# delete events fn with returning all the inventory
+# delete event — no stock return needed since we never deduct upfront
 def delete_events(event_id):
-    con = get_connection()
-    cursor = con.cursor()
-
-    #Get all allocated items for this event
-    cursor.execute("SELECT item_id, quantity FROM allocation WHERE event_id=?",(event_id,))
-    rows = cursor.fetchall()
-
-    #Return stock to inventory
-    for row in rows:
-        item_id = row[0]
-        qty = row[1]
-        cursor.execute("UPDATE inventory SET item_quantity = item_quantity + ? WHERE item_id=?",(qty, item_id))
-
-    #Delete allocations
+    con=get_connection()
+    cursor=con.cursor()
     cursor.execute("DELETE FROM allocation WHERE event_id=?",(event_id,))
-
-    #Delete event
     cursor.execute("DELETE FROM events WHERE event_id=?",(event_id,))
-
     con.commit()
     con.close()
 
-# update events data
+# update event
 def update_events(id,name,date,time,place,cust,phone):
     con=get_connection()
     cursor=con.cursor()
@@ -169,7 +149,7 @@ def update_events(id,name,date,time,place,cust,phone):
     con.commit()
     con.close()
 
-# add inevntory item data
+# add inventory item
 def add_inventory(name,quantity,price):
     con=get_connection()
     cursor=con.cursor()
@@ -177,13 +157,29 @@ def add_inventory(name,quantity,price):
     con.commit()
     con.close()
 
-# get all inevntory in pop up form
-def get_inventory():
+# get inventory
+# if event_date passed → deduct only items allocated to events on THAT same date
+# if no event_date → show full stock (no deduction)
+def get_inventory(event_date=None):
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("SELECT item_id,item_name,item_quantity,item_price FROM inventory")
+    if event_date:
+        cursor.execute("""
+            SELECT
+                i.item_id,
+                i.item_name,
+                i.item_quantity - COALESCE(SUM(CASE
+                    WHEN a.event_date = ? THEN a.quantity
+                    ELSE 0
+                END), 0) AS available_quantity,
+                i.item_price
+            FROM inventory i
+            LEFT JOIN allocation a ON i.item_id = a.item_id
+            GROUP BY i.item_id, i.item_name, i.item_quantity, i.item_price
+        """, (event_date,))
+    else:
+        cursor.execute("SELECT item_id, item_name, item_quantity, item_price FROM inventory")
     inven_data=cursor.fetchall()
-    con.commit()
     con.close()
     return inven_data
 
@@ -194,7 +190,7 @@ def delete_inventory_item(item_id):
     con.commit()
     con.close()
 
-# search fn
+# search inventory
 def search_inventory(search):
     con=get_connection()
     cursor=con.cursor()
@@ -204,7 +200,7 @@ def search_inventory(search):
     con.close()
     return search_data
 
-# get all allocated events
+# get allocated events (upcoming only)
 def allocated_events():
     con=get_connection()
     cursor=con.cursor()
@@ -214,7 +210,7 @@ def allocated_events():
     con.close()
     return pen_data
 
-# payments data with all data which are allocated
+# payments — all allocated events
 def allocated_orders_events():
     con=get_connection()
     cursor=con.cursor()
@@ -224,7 +220,7 @@ def allocated_orders_events():
     con.close()
     return pen_data
 
-# orders data with sorted in date wise
+# orders sorted by date
 def allocated_list_events():
     con=get_connection()
     cursor=con.cursor()
@@ -234,7 +230,7 @@ def allocated_list_events():
     con.close()
     return pen_data
 
-# allocated inventory list for events
+# allocated inventory list
 def allocated_inventory_list():
     con=get_connection()
     cursor=con.cursor()
@@ -252,7 +248,7 @@ def update_status(event_id):
     con.commit()
     con.close()
 
-# delete invntory
+# delete allocation row
 def delete_inventory(event_id,item_id):
     con=get_connection()
     cursor=con.cursor()
@@ -260,7 +256,7 @@ def delete_inventory(event_id,item_id):
     con.commit()
     con.close()
 
-# total amount calculation
+# total amount per event
 def total_mount_calculations():
     con=get_connection()
     cursor=con.cursor()
@@ -270,49 +266,58 @@ def total_mount_calculations():
     con.close()
     return total_data
 
-# updating alloction based obn various criteria
+# update allocation — never touches inventory.item_quantity
+# stock check is done against the event date's available quantity
 def update_allocation(event_id, item_id, quantity, name, price):
-    con = get_connection()
-    cursor = con.cursor()
+    con=get_connection()
+    cursor=con.cursor()
 
-    #Get old allocated quantity
-    cursor.execute("SELECT quantity FROM allocation WHERE event_id=? AND item_id=?",(event_id, item_id))
-    row = cursor.fetchone()
-    old_qty = row[0] if row else 0
+    # get old allocated quantity for this event+item
+    cursor.execute("SELECT quantity FROM allocation WHERE event_id=? AND item_id=?",(event_id,item_id))
+    row=cursor.fetchone()
+    old_qty=row[0] if row else 0
 
-    #Calculate difference
-    diff = quantity - old_qty
+    # get this event's date
+    cursor.execute("SELECT event_date FROM events WHERE event_id=?",(event_id,))
+    event_date=cursor.fetchone()[0]
 
-
-    #Check stock only if increasing
-    if diff > 0:
-        cursor.execute("SELECT item_quantity FROM inventory WHERE item_id=?",(item_id,))
-        result = cursor.fetchone()
-        available = result[0] if result else 0
-
-        if diff > available:
+    # stock check — only if increasing quantity
+    if quantity > old_qty:
+        # available = total stock minus all allocations on that same event date
+        cursor.execute("""
+            SELECT i.item_quantity - COALESCE(SUM(CASE
+                WHEN a.event_date = ? THEN a.quantity
+                ELSE 0
+            END), 0)
+            FROM inventory i
+            LEFT JOIN allocation a ON i.item_id = a.item_id
+            WHERE i.item_id = ?
+            GROUP BY i.item_id
+        """, (event_date, item_id))
+        result=cursor.fetchone()
+        available=result[0] if result else 0
+        if (quantity - old_qty) > available:
+            con.close()
             return "Not enough stock"
 
-    #Update inventory
-    if diff != 0:
-        cursor.execute("UPDATE inventory SET item_quantity = item_quantity - ? WHERE item_id=?",(diff, item_id))
-
-    #Allocation handling
+    # update allocation only — never touch inventory table
     if quantity == 0:
-        cursor.execute("DELETE FROM allocation WHERE event_id=? AND item_id=?",(event_id, item_id))
+        cursor.execute("DELETE FROM allocation WHERE event_id=? AND item_id=?",(event_id,item_id))
     elif row:
-        cursor.execute("UPDATE allocation SET quantity=?, total_price=? WHERE event_id=? AND item_id=?",(quantity, quantity * price, event_id, item_id))
+        cursor.execute(
+            "UPDATE allocation SET quantity=?, total_price=? WHERE event_id=? AND item_id=?",
+            (quantity, quantity*price, event_id, item_id)
+        )
     else:
-        cursor.execute("SELECT event_date FROM events WHERE event_id=?",(event_id,))
-
-        event_date = cursor.fetchone()[0]
-
-        cursor.execute("""INSERT INTO allocation(event_id, item_id, quantity, item_name, price_per_unit, total_price,event_date)VALUES(?,?,?,?,?,?,?)""",(event_id, item_id, quantity, name, price, quantity * price,event_date))
+        cursor.execute("""
+            INSERT INTO allocation(event_id,item_id,quantity,item_name,price_per_unit,total_price,event_date)
+            VALUES(?,?,?,?,?,?,?)
+        """, (event_id, item_id, quantity, name, price, quantity*price, event_date))
 
     con.commit()
     con.close()
 
-# get events based on id for billing
+# get event by id for billing
 def get_event_by_id(event_id):
     con=get_connection()
     cursor=con.cursor()
@@ -322,7 +327,7 @@ def get_event_by_id(event_id):
     con.close()
     return event_by_id
 
-# get items based on event id from allocation
+# get allocated items by event id
 def get_item_by_id(event_id):
     con=get_connection()
     cursor=con.cursor()
@@ -332,7 +337,7 @@ def get_item_by_id(event_id):
     con.close()
     return data
 
-# get total price per item
+# get total price for event
 def total_by_item(event_id):
     con=get_connection()
     cursor=con.cursor()
@@ -342,7 +347,7 @@ def total_by_item(event_id):
     con.close()
     return data
 
-# status change fn from upcoming to completed
+# update event status upcoming/completed
 def event_status_change():
     con=get_connection()
     cursor=con.cursor()
@@ -351,3 +356,10 @@ def event_status_change():
     con.commit()
     con.close()
 
+def update_inventory_item(item_id, name, quantity, price):
+    con = get_connection()
+    cursor = con.cursor()
+    cursor.execute("UPDATE inventory SET item_name=?, item_quantity=?, item_price=? WHERE item_id=?",
+                   (name, quantity, price, item_id))
+    con.commit()
+    con.close()

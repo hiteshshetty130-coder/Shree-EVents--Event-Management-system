@@ -1,11 +1,13 @@
-{% extends "base.html" %} {% block title %}INVENTORY{% endblock %} 
+{% extends "base.html" %} {% block title %}INVENTORY{% endblock %}
+
+{% block heading %}INVENTORY{% endblock %}
 {% block content %}
 <!-- main conatiner full -->
 <div class="main-inventory-box">
 
   <!-- main header -->
   <div class="inventory-header">
-    <h2><i class="fa-solid fa-box"></i>Inventory</h2>
+    <h3><i class="fa-solid fa-box"></i>Inventory</h3>
     <button type="button" id="openPopup">
       <i class="fa-solid fa-plus"></i>Add Inventory Item
     </button>
@@ -40,6 +42,7 @@
             </tr>
           </thead>
           <tbody>
+            {% if events %}
             <!-- for all the events with status pending show here -->
             {% for e in events %}
             <tr>
@@ -54,6 +57,11 @@
               </td>
             </tr>
             {% endfor %}
+            {% else %}
+            <tr style="width: 100%; height:100px;">
+              <td colspan="4" style="text-align:center; vertical-align:middle; font-size:16px; color:#666;">NO EVENTS LEFT TO ALLOCATE INVENTORY 😭</td>
+            </tr>
+            {% endif %}
           </tbody>
         </table>
       </div>
@@ -64,68 +72,87 @@
 
   <!-- allocated inventory conatiner -->
   <div class="allocated-inventory-container">
-    <h2>Allocated Inventory</h2>
+    <h3>Allocated Inventory</h3>
     <div class="events-cont">
-    <!-- events with status allocated shown here -->
-    {% for events in allocated_events_list %}
+      <!-- events with status allocated shown here -->
+       {% if allocated_events_list %}
+      {% for events in allocated_events_list %}
 
-    <!-- main small box with event name edit button  -->
-    <div class="event">
-      <form method="post">
-        <div class="event-header">
-          <p>{{events[1]}}</p>
-          <button type="button" class="edit-btn" data-event="{{events[0]}}"><i
-              class="fa-solid fa-pen-to-square"></i></button>
-          <span class="side">></span>
-        </div>
+      <!-- main small box with event name edit button  -->
+      <div class="event">
+        <form method="post">
+          <div class="event-header">
+            <p>{{events[1]}}</p>
+            <button type="button" class="edit-btn" data-event="{{events[0]}}"><i
+                class="fa-solid fa-pen-to-square"></i></button>
+            <span class="side">></span>
+          </div>
 
-        <!-- when clicked on that box the inventory allocated to the event are shown -->
-        <div class="inventory">
-          <table>
-            <thead>
-              <tr>
-                <td>Item Name</td>
-                <td>Quantity</td>
-                <td>Price/Q</td>
-                <td>Total Price</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- all the inventory of that event show -->
-              {% for row in allocated_list %}
-              <!-- if item_id matched then show -->
-              {% if row[0]==events[0] %}
-              <tr>
+          <!-- when clicked on that box the inventory allocated to the event are shown -->
+          <div class="inventory">
+            
+            <table>
+              <thead>
+                <tr>
+                  <td>Item Name</td>
+                  <td>Quantity</td>
+                  <td>Price/Q</td>
+                  <td>Total Price</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% set ns = namespace(found=false) %}
+                <!-- all the inventory of that event show -->
+                {% for row in allocated_list %}
+                <!-- if item_id matched then show -->
+                {% if row[0]==events[0] %}
+                {% set ns.found = true %}
+                <tr>
 
-                <td>{{row[2]}}</td>
-                <td>{{row[4]}}</td>
-                <td>{{row[3]}}</td>
-                <td>{{row[5]}}</td>
-                <td>
-                  <form method="post">
-                    <input type="hidden" name="event_id" value="{{row[0]}}">
-                    <input type="hidden" name="item_id" value="{{row[6]}}">
-                    <button name="delete_btn" onclick="return confirm('Are you sure you want to deelete this inventory?')">delete</button>
-                  </form>
-                </td>
-              </tr>
+                  <td>{{row[2]}}</td>
+                  <td>{{row[4]}}</td>
+                  <td>{{row[3]}}</td>
+                  <td>{{row[5]}}</td>
+                  <td>
+                    <form method="post">
+                      <input type="hidden" name="event_id" value="{{row[0]}}">
+                      <input type="hidden" name="item_id" value="{{row[6]}}">
+                      <button name="delete_btn"
+                        onclick="return confirm('Are you sure you want to deelete this inventory?')">delete</button>
+                    </form>
+                  </td>
+                </tr>
 
-              {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-          {% for t in total_data %}
-          {% if t[0]==events[0] %}
-          <p style="text-align: right; padding-right: 50px;padding-bottom:5px ;">
-            Total Amount - {{t[1]}}
-          </p>
-          {% endif %}
-          {% endfor %}
-        </div>
-      </form>
-    </div>
-    {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+                {% if not ns.found %}
+                    <tr class="empty-row">
+                        <td colspan="5" class="no-events-msg" style="text-align:center; vertical-align:middle; font-size:16px; color:#666;">
+                              No items allocated
+                        </td>
+                    </tr>
+                {% endif %}
+
+              </tbody>
+            </table>
+            {% for t in total_data %}
+            {% if t[0]==events[0] %}
+            <p style="text-align: right; padding-right: 50px;padding-bottom:5px ;">
+              Total Amount - {{t[1]}}
+            </p>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </form>
+      </div>
+      {% endfor %}
+{% else %}
+<div class="no-allocated-events">
+  No allocated events 😊
+</div>
+{% endif %}
     </div>
   </div>
 
@@ -145,15 +172,15 @@
       <form method="post">
         <div class="pop-up-input">
           <p>Item name :</p>
-          <input type="text" name="itemname" placeholder="Enter the Item name...." required/>
+          <input type="text" name="itemname" placeholder="Enter the Item name...." required />
         </div>
         <div class="pop-up-input">
           <p>Quantity :</p>
-          <input type="number" name="quantity" placeholder="Enter Available Quantity..." min="1" required/>
+          <input type="number" name="quantity" placeholder="Enter Available Quantity..." min="1" required />
         </div>
         <div class="pop-up-input">
           <p>Item Price :</p>
-          <input type="number" name="price" placeholder="Enter the Item Price...." min="1" required/>
+          <input type="number" name="price" placeholder="Enter the Item Price...." min="1" required />
         </div>
         <button type="submit" name="allocate_inventory">Add Item</button>
       </form>
@@ -186,7 +213,7 @@
           <button type="submit" name="clear_btn"
             style="background-color: yellow; border: none; color: black;">clear</button>
         </div>
-        
+
         <!-- all item list container -->
         <div class="item-list">
           {% if inven_data %}
@@ -198,9 +225,15 @@
             </div>
             <div class="inventory-action">
               <button type="button" class="minus">-</button>
-              <input type="number" name="qty_{{e[0]}}" value="{{existing_alloc.get(e[0],0)}}" class="input" min="0"
-                 />
-              <button type="button" class="plus">+</button>
+                <input 
+                  type="number" 
+                  name="qty_{{e[0]}}" 
+                  data-item-id="{{e[0]}}"
+                  value="{{existing_alloc.get(e[0],0)}}" 
+                  class="input" 
+                  min="0" 
+                />              
+                <button type="button" class="plus">+</button>
             </div>
           </div>
           {% endfor %}
@@ -224,6 +257,17 @@
     if (flag && (flag.value === "True" || flag.value === "true")) {
       popup.style.display = "flex";
     }
+    const messages = JSON.parse('{{ get_flashed_messages() | tojson | safe }}');
+
+    if(messages.length > 0){
+        alert(messages[0]);
+
+        if(popup){
+            popup.style.display = "flex";
+        }
+    }
+
   });
+  
 </script>
 {% endblock %}

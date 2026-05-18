@@ -21,3 +21,12 @@ def delete_item(item_id):
         return redirect(url_for('items.items_fn'))
     else:
         return redirect(url_for('home'))
+
+@items_app.route('/items/update', methods=['POST'])
+def update_item():
+    item_id = request.form.get('item_id')
+    name = request.form.get('item_name')
+    quantity = request.form.get('item_quantity')
+    price = request.form.get('item_price')
+    update_inventory_item(item_id, name, quantity, price)
+    return redirect(url_for('items.items_fn'))
