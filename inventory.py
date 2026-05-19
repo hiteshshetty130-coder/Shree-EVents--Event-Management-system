@@ -3,6 +3,13 @@ from database import *
 
 inventory_app=Blueprint('inventory',__name__)
 
+def safe_int(val):
+    """Convert to int safely, return 0 for empty/invalid input."""
+    try:
+        return int(val) if val and val.strip() else 0
+    except (ValueError, TypeError):
+        return 0
+
 @inventory_app.route('/inventory',methods=['GET','POST'])
 def inventory_fn():
     if 'user' in session:
@@ -44,13 +51,17 @@ def inventory_fn():
                 cart=session.get('alloc_cart',{})
                 for item in items:
                     item_id=item[0]
-                    qty=request.form.get(f'qty_{item_id}')
-                    if qty is not None:
-                        if int(qty)>0:
-                            cart[str(item_id)]=int(qty)
-                        else:
-                            cart.pop(str(item_id),None)
+                    qty=safe_int(request.form.get(f'qty_{item_id}'))
+                    if qty > 0:
+                        cart[str(item_id)]=qty
+                    else:
+                        cart.pop(str(item_id),None)
                 session['alloc_cart']=cart
+
+                # check if cart is empty (all zeros or nothing entered)
+                if not cart:
+                    flash("Please enter a quantity greater than 0 for at least one item.", "error")
+                    return redirect(f'/inventory?event_id={event_id}')
 
                 # save everything in cart to DB
                 all_items=get_inventory(event_date)
@@ -64,7 +75,7 @@ def inventory_fn():
                         selected=True
 
                 if not selected:
-                    flash("Please allocate at least one inventory item")
+                    flash("Please allocate at least one inventory item.", "error")
                     return redirect(f'/inventory?event_id={event_id}')
 
                 # clear cart after saving
@@ -82,12 +93,11 @@ def inventory_fn():
                 all_items=get_inventory(event_date)
                 for item in all_items:
                     item_id=item[0]
-                    qty=request.form.get(f'qty_{item_id}')
-                    if qty is not None:
-                        if int(qty)>0:
-                            cart[str(item_id)]=int(qty)
-                        else:
-                            cart.pop(str(item_id),None)
+                    qty=safe_int(request.form.get(f'qty_{item_id}'))
+                    if qty > 0:
+                        cart[str(item_id)]=qty
+                    else:
+                        cart.pop(str(item_id),None)
                 session['alloc_cart']=cart
 
                 inven_data=search_inventory(search)
@@ -100,12 +110,11 @@ def inventory_fn():
                 all_items=get_inventory(event_date)
                 for item in all_items:
                     item_id=item[0]
-                    qty=request.form.get(f'qty_{item_id}')
-                    if qty is not None:
-                        if int(qty)>0:
-                            cart[str(item_id)]=int(qty)
-                        else:
-                            cart.pop(str(item_id),None)
+                    qty=safe_int(request.form.get(f'qty_{item_id}'))
+                    if qty > 0:
+                        cart[str(item_id)]=qty
+                    else:
+                        cart.pop(str(item_id),None)
                 session['alloc_cart']=cart
 
                 inven_data=get_inventory(event_date)
