@@ -2452,3 +2452,99 @@ button .fa-trash {
   padding: 50px;
   border: 1px solid black;
 }
+
+@media (max-width: 768px) {
+  .orders-content {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .orders-table-container {
+    height: auto;
+    min-height: 100svh;
+    padding: 14px 10px;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .orders-table-container h2 {
+    font-size: 20px;
+  }
+
+  .orders-table-container table,
+  .orders-table-container thead,
+  .orders-table-container tbody {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .orders-table-container thead {
+    display: none;
+  }
+
+  .orders-table-container tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    gap: 4px 8px;
+  }
+
+  .orders-table-container tbody tr:hover {
+    background: #eef7f1;
+  }
+
+  .orders-table-container tbody td {
+    display: block;
+    border-bottom: none;
+    padding: 4px 0;
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+
+  .orders-table-container tbody td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+    color: #04642f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+
+  .orders-table-container tbody td:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    color: #666;
+  }
+
+  .orders-table-container tbody td:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+    color: #555;
+    align-self: center;
+  }
+
+  .orders-table-container tbody td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right;
+    align-self: center;
+  }
+
+  .orders-table-container tbody td:nth-child(4) button {
+    min-width: unset;
+    width: 100%;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
