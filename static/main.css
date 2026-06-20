@@ -876,7 +876,8 @@ hr {
   color: white;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
 .form-btn input[name="create"] {
@@ -1054,6 +1055,7 @@ button .fa-trash {
     color: #fff;
     cursor: pointer;
     letter-spacing: 0.5px;
+    margin-left: 0;
   }
 
   .form-btn input[name="create"] {
@@ -1754,6 +1756,102 @@ button .fa-trash {
   color: #666;
   font-size: 16px;
   font-weight: 900;
+}
+
+@media (max-width: 768px) {
+  .pop-up-form-al {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 15px 12px;
+  }
+
+  .pop-up-form-al h2 {
+    font-size: 16px;
+    margin-right: 140px;
+  }
+
+  .top-save-btn {
+    top: 12px;
+    right: 45px;
+  }
+
+  .top-save-btn button {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .exit-div {
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .search-box {
+    gap: 6px;
+  }
+
+  .search-box input {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+
+  .search-box button {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  /* card: name left, action right — single row */
+  .pop-up-form-al .inventory-all-container {
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .inventory-all-container .inventory-content {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inventory-content p {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+
+  .inventory-content span {
+    font-size: 11px;
+  }
+
+  .inventory-all-container .inventory-action {
+    width: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .inventory-action button {
+    width: 28px;
+    height: 26px;
+    font-size: 15px;
+    border-radius: 4px;
+  }
+
+  .inventory-action input {
+    width: 45px;
+    height: 26px;
+    font-size: 13px;
+  }
 }
 
 /* =========================
