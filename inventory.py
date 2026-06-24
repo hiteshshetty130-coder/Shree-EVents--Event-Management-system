@@ -3,11 +3,9 @@ from database import *
 
 inventory_app = Blueprint('inventory', __name__)
 
-
-# ─── Utilities ───────────────────────────────────────────────────────────────
-
+#small function to handle each part
 def safe_int(val):
-    """Convert to int safely, return 0 for empty/invalid input."""
+    #Convert to int safely, return 0 for empty/invalid input.
     try:
         return int(val) if val and val.strip() else 0
     except (ValueError, TypeError):
@@ -15,7 +13,7 @@ def safe_int(val):
 
 
 def get_event_date(event_id):
-    """Get event date from event_id."""
+    #Get event date from event_id.
     if event_id:
         event = get_event_by_id(event_id)
         if event:
@@ -24,10 +22,7 @@ def get_event_date(event_id):
 
 
 def save_cart(event_date):
-    """
-    Save currently visible item quantities from the form
-    into session cart before searching or clearing.
-    """
+    #Save currently visible item quantities from the form into session cart before searching or clearing.
     cart = session.get('alloc_cart', {})
     all_items = get_inventory(event_date)
 
@@ -43,11 +38,9 @@ def save_cart(event_date):
 
 
 def build_existing_alloc(event_id):
-    """
-    Build existing_alloc dict:
-    1. Load saved allocations from DB
-    2. Overlay session cart on top (cart = latest user input)
-    """
+    #Build existing_alloc dict:
+    #Load saved allocations from DB
+    #Overlay session cart on top (cart = latest user input)
     existing_alloc = {}
 
     # Step 1 - from DB
@@ -67,10 +60,8 @@ def build_existing_alloc(event_id):
     return existing_alloc
 
 
-# ─── POST Handlers ───────────────────────────────────────────────────────────
-
 def handle_add_inventory():
-    """Handle adding a new inventory item."""
+    #Handle adding a new inventory item.
     item_name = request.form['itemname']
     quantity = request.form['quantity']
     price = request.form['price']
@@ -79,7 +70,7 @@ def handle_add_inventory():
 
 
 def handle_save_allocation(event_id):
-    """Handle saving the full allocation to DB."""
+    #Handle saving the full allocation to DB.
     event_date = get_event_date(event_id)
 
     # save visible quantities into cart first
@@ -114,20 +105,20 @@ def handle_save_allocation(event_id):
 
 
 def handle_search(event_date):
-    """Save quantities then search inventory."""
+    #Save quantities then search inventory.
     save_cart(event_date)
     search = request.form.get('search')
     return search_inventory(search)
 
 
 def handle_clear_search(event_date):
-    """Save quantities then clear search."""
+    #Save quantities then clear search.
     save_cart(event_date)
     return get_inventory(event_date)
 
 
 def handle_delete_allocation():
-    """Handle deleting a single allocated item."""
+    #Handle deleting a single allocated item.
     event_id = request.form.get('event_id')
     item_id = request.form.get('item_id')
 
@@ -142,9 +133,7 @@ def handle_delete_allocation():
 
     return redirect('/inventory')
 
-
-# ─── Main Route ──────────────────────────────────────────────────────────────
-
+#main function
 @inventory_app.route('/inventory', methods=['GET', 'POST'])
 def inventory_fn():
     if 'user' not in session:
