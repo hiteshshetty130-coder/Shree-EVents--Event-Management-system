@@ -4,6 +4,8 @@ A full-stack **Event Management System** built using **Flask (Python)** for back
 
 ---
 
+### Render link- https://shree-events.onrender.com
+
 ## Features
 
 ### Authentication System
@@ -61,4 +63,10 @@ A full-stack **Event Management System** built using **Flask (Python)** for back
 ### Database
 - SQLite 
 
-
+### Screenshots
+login page-(screenshots/login.jpg)
+Dashboard page-(screenshots/dashboard.jpg)
+Events page-(screenshots/Events.jpg)
+Inventory page-(screenshots/Inventory.jpg)
+payments page-(screenshots/Payments.jpg)
+Orders page-(screenshots/Orders.jpg)
