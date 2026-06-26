@@ -1,237 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Bill</title>
 
     <!-- jsPDF + html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
 
-    
-</head>
+  <body>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Event Bill</title>
 
-<body>
+        <style>
+          body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f6f3f9;
+            padding: 20px;
+          }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Event Bill</title>
+          .bill-container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          }
 
-<style>
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f6f3f9;
-    padding: 20px;
-}
+          .header {
+            text-align: center;
+            margin-bottom: 20px;
+          }
 
-.bill-container {
-    max-width: 900px;
-    margin: auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
+          .header h1 {
+            color: #6a1b9a;
+            margin: 0;
+          }
 
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+          .header p {
+            color: #777;
+            font-size: 14px;
+          }
 
-.header h1 {
-    color: #6a1b9a;
-    margin: 0;
-}
+          .bill-title {
+            background: #6a1b9a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 20px;
+          }
+          .bill-title p {
+            padding: 0;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+          }
 
-.header p {
-    color: #777;
-    font-size: 14px;
-}
+          .event-details {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+          }
 
-.bill-title {
-    background: #6a1b9a;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    border-radius: 6px;
-    margin: 20px 0;
-    font-size: 20px;
-}
-.bill-title p{
-    padding: 0;
-    margin: 0;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-}
+          .event-details span {
+            width: 150px;
+            font-weight: bold;
+            color: #444;
+          }
 
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
 
-.event-details {
-    width: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-}
+          table th {
+            background: #6a1b9a;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+          }
 
+          table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+          }
 
+          .total-box {
+            width: 40%;
+            padding: 5px;
+            float: left;
+            margin-top: 20px;
+          }
 
-.event-details span {
-    width: 150px;
-    font-weight: bold;
-    color: #444;
-}
+          .total-box div {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 8px;
+            border: 1px solid #ddd;
+          }
 
+          .total-box .grand-total {
+            background: #6a1b9a;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 0px;
+          }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+          /* Footer */
+          .footer {
+            margin-top: 80px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="bill-container" id="bill">
+          <div class="header">
+            <h1>SHREE EVENTS KUDLA</h1>
+            <p>We Plan, You Celebrate</p>
+          </div>
 
-table th {
-    background: #6a1b9a;
-    color: white;
-    padding: 10px;
-    font-size: 14px;
-}
+          <div class="bill-title">
+            <p>TOTAL BILL</p>
+          </div>
 
-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
+          <!-- Event Details -->
+          <div class="event-details">
+            <div><span>Event Name :</span> {{event[1]}}</div>
+            <div>
+              <span>Event Date :</span> {{event[2]}} {% if event[3] and event[3]
+              != event[2] %} &ndash; {{event[3]}} {% endif %}
+              
+            </div>
+            <div><span>Event Place :</span> {{event[5]}}</div>
+          </div>
 
-.total-box {
-    width: 40%;
-    padding: 5px;
-    float: left;
-    margin-top: 20px;
-}
+          <!-- Table -->
+          <table>
+            <tr>
+              <th>Sr No</th>
+              <th>Inventory</th>
+              <th>Quantity</th>
+              <th>Price (₹)</th>
 
-.total-box div {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 8px;
-    border: 1px solid #ddd;
+              <th>Amount (₹)</th>
+            </tr>
 
-}
+            {% for i in items %}
+            <tr>
+              <td>1</td>
+              <td>{{i[3]}}</td>
+              <td>{{i[6]}}</td>
+              <td>{{i[4]}}</td>
 
-.total-box .grand-total {
-    background: #6a1b9a;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    border-radius: 0px;
-}
+              <td>{{i[6]*i[4]}}</td>
+            </tr>
+            {% endfor %}
+          </table>
 
-/* Footer */
-.footer {
-    margin-top: 80px;
-    text-align: center;
-    color: #777;
-    font-size: 14px;
-}
-</style>
+          <!-- Total -->
+          <div class="total-box">
+            <div><span>Subtotal:</span> ₹ {{total}}</div>
+            <div><span>CGST (9%):</span> ₹ {{gst_total}}</div>
 
-</head>
-<body>
+            <div class="grand-total"><span>Total:</span> ₹ {{final_total}}</div>
+          </div>
 
-<div class="bill-container" id="bill">
+          <div style="clear: both"></div>
 
-    <div class="header">
-        <h1>SHREE EVENTS KUDLA</h1>
-        <p>We Plan, You Celebrate</p>
-    </div>
-
-    <div class="bill-title">
-        <p>TOTAL BILL</p>
-    </div>
-
-    <!-- Event Details -->
-    <div class="event-details">
-        <div ><span>Event Name :</span> {{event[1]}}</div>
-        <div><span>Event Date :</span> {{event[2]}}</div>
-        <div><span>Event Place :</span> {{event[4]}}</div>
-    </div>
-
-    <!-- Table -->
-    <table>
-        <tr>
-            <th>Sr No</th>
-            <th>Inventory</th>
-            <th>Quantity</th>
-            <th>Price (₹)</th>
-           
-            <th>Amount (₹)</th>
-        </tr>
-
-        {% for i in items %}
-        <tr>
-            <td>1</td>
-            <td>{{i[3]}}</td>
-            <td>{{i[6]}}</td>
-            <td>{{i[4]}}</td>
-           
-            <td>{{i[6]*i[4]}}</td>
-        </tr>
-        {% endfor %}
-
-        
-
-    </table>
-
-    <!-- Total -->
-    <div class="total-box">
-        <div><span>Subtotal:</span> ₹ {{total}}</div>
-        <div><span>CGST (9%):</span> ₹ {{gst_total}}</div>
-        
-        <div class="grand-total">
-            <span>Total:</span> ₹ {{final_total}}
+          <!-- Footer -->
+          <div class="footer">Thank you for choosing us!</div>
         </div>
-    </div>
 
-    <div style="clear: both;"></div>
+        <!-- 🔥 DOWNLOAD BUTTON -->
+        <center>
+          <button
+            onclick="downloadPDF()"
+            style="
+              margin-top: 20px;
+              background: #4a6cf7;
+              color: white;
+              cursor: pointer;
+              font-size: 18px;
+              font-weight: 900;
+              border: none;
+              border-radius: 5px;
+              height: 30px;
+            "
+          >
+            Download PDF
+          </button>
+        </center>
 
-    <!-- Footer -->
-    <div class="footer">
-        Thank you for choosing us! 
-    </div>
+        <script>
+          async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
 
-</div>
+            const bill = document.getElementById("bill");
 
+            const canvas = await html2canvas(bill);
 
+            const imgData = canvas.toDataURL("image/png");
 
-<!-- 🔥 DOWNLOAD BUTTON -->
-<center>
-    <button onclick="downloadPDF()" style="margin-top: 20px; background: #4a6cf7;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 900;
-  border: none;
-  border-radius: 5px; height: 30px;">Download PDF</button>
-</center>
+            const pdf = new jsPDF("p", "mm", "a4");
 
-<script>
-async function downloadPDF() {
+            const imgWidth = 190;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    const { jsPDF } = window.jspdf;
+            pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
 
-    const bill = document.getElementById("bill");
-
-    const canvas = await html2canvas(bill);
-
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF("p", "mm", "a4");
-
-    const imgWidth = 190;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-
-    pdf.save("event_bill.pdf");
-}
-</script>
-
-</body>
+            pdf.save("event_bill.pdf");
+          }
+        </script>
+      </body>
+    </html>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Blueprint,redirect,render_template,session,url_for,request
+from flask import Blueprint,redirect,render_template,session,url_for,request,flash
 from database import *
 from datetime import date
 
@@ -16,11 +16,18 @@ def events_fn():
             if request.method=='POST' and 'create' in request.form:
                 event_name=request.form['eventname']
                 event_date=request.form['date']
+                end_date=request.form['end_date']
                 time=request.form['time']
                 place=request.form['place']
                 cust=request.form['cust']
                 phone=request.form['phone']
-                create_events(event_name,event_date,time,place,cust,phone)
+
+                # validation - end date should not be before start date
+                if end_date < event_date:
+                    flash("End date cannot be before start date","error")
+                    return redirect('/events')
+
+                create_events(event_name,event_date,end_date,time,place,cust,phone)
                 return redirect('/events')
             
             # if delete button in table is clicked then delete that row also in database
@@ -35,6 +42,7 @@ def events_fn():
                     "id": request.form['id'],
                     "name": request.form['eventname'],
                     "date": request.form['date'],
+                    "end_date": request.form.get('end_date',''),
                     "time": request.form['time'],
                     "place": request.form['place'],
                     "cust": request.form['cust'],
@@ -46,12 +54,18 @@ def events_fn():
                 id=request.form['id']
                 event_name=request.form['eventname']
                 event_date=request.form['date']
+                end_date=request.form['end_date']
                 time=request.form['time']
                 place=request.form['place']
                 cust=request.form['cust']
                 phone=request.form['phone']
 
-                update_events(id,event_name,event_date,time,place,cust,phone)
+                # validation - end date should not be before start date
+                if end_date < event_date:
+                    flash("End date cannot be before start date","error")
+                    return redirect('/events')
+
+                update_events(id,event_name,event_date,end_date,time,place,cust,phone)
                 return redirect('/events')
             
             # function to display all the events data in table

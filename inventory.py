@@ -17,14 +17,14 @@ def get_event_date(event_id):
     if event_id:
         event = get_event_by_id(event_id)
         if event:
-            return event[2]
-    return None
+            return event[2], event[3]
+    return None, None
 
 
-def save_cart(event_date):
+def save_cart(event_date, end_date):
     #Save currently visible item quantities from the form into session cart before searching or clearing.
     cart = session.get('alloc_cart', {})
-    all_items = get_inventory(event_date)
+    all_items = get_inventory(event_date, end_date)
 
     for item in all_items:
         item_id = item[0]
@@ -71,10 +71,10 @@ def handle_add_inventory():
 
 def handle_save_allocation(event_id):
     #Handle saving the full allocation to DB.
-    event_date = get_event_date(event_id)
+    event_date, end_date = get_event_date(event_id)
 
     # save visible quantities into cart first
-    save_cart(event_date)
+    save_cart(event_date, end_date)
     cart = session.get('alloc_cart', {})
 
     # check if cart is empty
@@ -83,7 +83,7 @@ def handle_save_allocation(event_id):
         return redirect(f'/inventory?event_id={event_id}')
 
     # build item map for name and price lookup
-    all_items = get_inventory(event_date)
+    all_items = get_inventory(event_date, end_date)
     item_map = {str(i[0]): (i[1], i[3]) for i in all_items}
 
     selected = False
@@ -91,7 +91,10 @@ def handle_save_allocation(event_id):
         if item_id_str in item_map:
             item_name = item_map[item_id_str][0]
             price_per = item_map[item_id_str][1]
-            update_allocation(event_id, item_id_str, qty, item_name, price_per)
+            result = update_allocation(event_id, item_id_str, qty, item_name, price_per)
+            if result == "Not enough stock":
+                flash(f"Not enough stock for {item_name}.", "error")
+                return redirect(f'/inventory?event_id={event_id}')
             selected = True
 
     if not selected:
@@ -104,17 +107,17 @@ def handle_save_allocation(event_id):
     return redirect('/inventory')
 
 
-def handle_search(event_date):
+def handle_search(event_date, end_date):
     #Save quantities then search inventory.
-    save_cart(event_date)
+    save_cart(event_date, end_date)
     search = request.form.get('search')
     return search_inventory(search)
 
 
-def handle_clear_search(event_date):
+def handle_clear_search(event_date, end_date):
     #Save quantities then clear search.
-    save_cart(event_date)
-    return get_inventory(event_date)
+    save_cart(event_date, end_date)
+    return get_inventory(event_date, end_date)
 
 
 def handle_delete_allocation():
@@ -122,8 +125,8 @@ def handle_delete_allocation():
     event_id = request.form.get('event_id')
     item_id = request.form.get('item_id')
 
-    event_date = get_event_date(event_id)
-    items = get_inventory(event_date)
+    event_date, end_date = get_event_date(event_id)
+    items = get_inventory(event_date, end_date)
 
     for item in items:
         if str(item[0]) == str(item_id):
@@ -140,8 +143,8 @@ def inventory_fn():
         return redirect(url_for('home'))
 
     event_id = request.form.get('event_id') or request.args.get('event_id')
-    event_date = get_event_date(event_id)
-    inven_data = get_inventory(event_date)
+    event_date, end_date = get_event_date(event_id)
+    inven_data = get_inventory(event_date, end_date)
     show_popup = False
 
     if request.method == 'POST':
@@ -153,11 +156,11 @@ def inventory_fn():
             return handle_save_allocation(event_id)
 
         elif 'search_btn' in request.form:
-            inven_data = handle_search(event_date)
+            inven_data = handle_search(event_date, end_date)
             show_popup = True
 
         elif 'clear_btn' in request.form:
-            inven_data = handle_clear_search(event_date)
+            inven_data = handle_clear_search(event_date, end_date)
             show_popup = True
 
         elif 'delete_btn' in request.form:

@@ -16,10 +16,11 @@ def init_db():
                 PASSWORD TEXT NOT NULL)""")
     cursor.execute(""" INSERT OR IGNORE INTO login(username,password)VALUES('SHREEEVENTS','SANATHRASHMI22')""")
 
-    # events table
+    # events table — end_date added
     cursor.execute(""" CREATE TABLE IF NOT EXISTS events(event_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 event_name TEXT NOT NULL,
                 event_date DATETIME NOT NULL,
+                end_date DATETIME,
                 event_time DATETIME NOT NULL,
                 place TEXT NOT NULL,
                 cust TEXT NOT NULL,
@@ -34,7 +35,7 @@ def init_db():
                    item_quantity INTEGER NOT NULL,
                    item_price INTEGER NOT NULL)""")
 
-    # inventory allocation table
+    # inventory allocation table — end_date added
     cursor.execute(""" CREATE TABLE IF NOT EXISTS allocation(id INTEGER PRIMARY KEY AUTOINCREMENT,
                    event_id INTEGER,
                    item_id INTEGER,
@@ -42,7 +43,19 @@ def init_db():
                    price_per_unit DECIMAL,
                    total_price DECIMAL,
                    quantity INTEGER NOT NULL,
-                   event_date DATETIME NOT NULL)""")
+                   event_date DATETIME NOT NULL,
+                   end_date DATETIME)""")
+
+    # ---- migration for existing DBs that were created before end_date existed ----
+    try:
+        cursor.execute("ALTER TABLE events ADD COLUMN end_date DATETIME")
+    except sqlite3.OperationalError:
+        pass  # column already exists
+
+    try:
+        cursor.execute("ALTER TABLE allocation ADD COLUMN end_date DATETIME")
+    except sqlite3.OperationalError:
+        pass  # column already exists
 
     con.commit()
     con.close()
@@ -104,11 +117,11 @@ def charts_data():
     data=cursor.fetchall()
     return data
 
-# event creation
-def create_events(event_name,date,time,place,cust,phone_number):
+# event creation — now takes end_date
+def create_events(event_name,date,end_date,time,place,cust,phone_number):
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("INSERT INTO events(event_name,event_date,event_time,place,cust,phone_number)VALUES(?,?,?,?,?,?)",(event_name,date,time,place,cust,phone_number))
+    cursor.execute("INSERT INTO events(event_name,event_date,end_date,event_time,place,cust,phone_number)VALUES(?,?,?,?,?,?,?)",(event_name,date,end_date,time,place,cust,phone_number))
     con.commit()
     con.close()
 
@@ -141,11 +154,11 @@ def delete_events(event_id):
     con.commit()
     con.close()
 
-# update event
-def update_events(id,name,date,time,place,cust,phone):
+# update event — now takes end_date
+def update_events(id,name,date,end_date,time,place,cust,phone):
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("UPDATE events SET event_name=?,event_date=?,event_time=?,place=?,cust=?,phone_number=? WHERE event_id=?",(name,date,time,place,cust,phone,id))
+    cursor.execute("UPDATE events SET event_name=?,event_date=?,end_date=?,event_time=?,place=?,cust=?,phone_number=? WHERE event_id=?",(name,date,end_date,time,place,cust,phone,id))
     con.commit()
     con.close()
 
@@ -158,25 +171,28 @@ def add_inventory(name,quantity,price):
     con.close()
 
 # get inventory
-# if event_date passed → deduct only items allocated to events on THAT same date
-# if no event_date → show full stock (no deduction)
-def get_inventory(event_date=None):
+# if start_date+end_date passed → deduct items allocated to events whose date range OVERLAPS this one
+# if no dates → show full stock (no deduction)
+def get_inventory(start_date=None, end_date=None):
     con=get_connection()
     cursor=con.cursor()
-    if event_date:
+    if start_date:
+        # fallback: single-day event if end_date not given
+        if not end_date:
+            end_date = start_date
         cursor.execute("""
             SELECT
                 i.item_id,
                 i.item_name,
                 i.item_quantity - COALESCE(SUM(CASE
-                    WHEN a.event_date = ? THEN a.quantity
+                    WHEN a.event_date <= ? AND COALESCE(a.end_date, a.event_date) >= ? THEN a.quantity
                     ELSE 0
                 END), 0) AS available_quantity,
                 i.item_price
             FROM inventory i
             LEFT JOIN allocation a ON i.item_id = a.item_id
             GROUP BY i.item_id, i.item_name, i.item_quantity, i.item_price
-        """, (event_date,))
+        """, (end_date, start_date))
     else:
         cursor.execute("SELECT item_id, item_name, item_quantity, item_price FROM inventory")
     inven_data=cursor.fetchall()
@@ -267,7 +283,7 @@ def total_mount_calculations():
     return total_data
 
 # update allocation — never touches inventory.item_quantity
-# stock check is done against the event date's available quantity
+# stock check is done against OVERLAPPING events' date ranges
 def update_allocation(event_id, item_id, quantity, name, price):
     con=get_connection()
     cursor=con.cursor()
@@ -277,23 +293,25 @@ def update_allocation(event_id, item_id, quantity, name, price):
     row=cursor.fetchone()
     old_qty=row[0] if row else 0
 
-    # get this event's date
-    cursor.execute("SELECT event_date FROM events WHERE event_id=?",(event_id,))
-    event_date=cursor.fetchone()[0]
+    # get this event's start+end date
+    cursor.execute("SELECT event_date, end_date FROM events WHERE event_id=?",(event_id,))
+    event_row=cursor.fetchone()
+    event_date=event_row[0]
+    end_date=event_row[1] if event_row[1] else event_row[0]  # single-day fallback
 
     # stock check — only if increasing quantity
     if quantity > old_qty:
-        # available = total stock minus all allocations on that same event date
+        # available = total stock minus all allocations whose range overlaps this event's range
         cursor.execute("""
             SELECT i.item_quantity - COALESCE(SUM(CASE
-                WHEN a.event_date = ? THEN a.quantity
+                WHEN a.event_date <= ? AND COALESCE(a.end_date, a.event_date) >= ? THEN a.quantity
                 ELSE 0
             END), 0)
             FROM inventory i
             LEFT JOIN allocation a ON i.item_id = a.item_id
             WHERE i.item_id = ?
             GROUP BY i.item_id
-        """, (event_date, item_id))
+        """, (end_date, event_date, item_id))
         result=cursor.fetchone()
         available=result[0] if result else 0
         if (quantity - old_qty) > available:
@@ -310,9 +328,9 @@ def update_allocation(event_id, item_id, quantity, name, price):
         )
     else:
         cursor.execute("""
-            INSERT INTO allocation(event_id,item_id,quantity,item_name,price_per_unit,total_price,event_date)
-            VALUES(?,?,?,?,?,?,?)
-        """, (event_id, item_id, quantity, name, price, quantity*price, event_date))
+            INSERT INTO allocation(event_id,item_id,quantity,item_name,price_per_unit,total_price,event_date,end_date)
+            VALUES(?,?,?,?,?,?,?,?)
+        """, (event_id, item_id, quantity, name, price, quantity*price, event_date, end_date))
 
     con.commit()
     con.close()

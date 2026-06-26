@@ -1,42 +1,41 @@
-{% extends "base.html" %}
- {% block title %}ORDERS{% endblock %} 
- {% block heading %}Status Overview{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}ORDERS{% endblock %} {% block heading
+%}Status Overview{% endblock %} {% block content %}
 <div class="orders-content">
-    <div class="orders-table-container">
-        {% if events_list %}
-        <h2>orders</h2>
-        <hr>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Event Name</td>
-                        <td>Date</td>
-                        <td>Place</td>
-                        <td>Status</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for e in events_list %}
-                    <tr>
-                        <td>{{e[1]}}</td>
-                        <td>{{e[2]}}</td>
-                        <td>{{e[4]}}</td>
-                        {% if e[7]=='upcoming' %}
-                        <td><button>{{e[7]}}</button></td>
-                        {% else %}
-                        <td><button style="background-color: red;">{{e[7]}}</button></td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-        <div class="no-payments">
-        <p>NO Events Created or Allocated 😭</p>
+  <div class="orders-table-container">
+    {% if events_list %}
+    <h2>orders</h2>
+    <hr />
+    <table>
+      <thead>
+        <tr>
+          <td>Event Name</td>
+          <td>Date</td>
+          <td>Place</td>
+          <td>Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in events_list %}
+        <tr>
+          <td>{{e[1]}}</td>
+          <td>
+            {{e[2]}} {% if e[3] and e[3] != e[2] %} &ndash; {{e[3]}} <span>(multiday)</span> {% endif %}
+          </td>
+          <td>{{e[5]}}</td>
+          {% if e[8]=='upcoming' %}
+          <td><button>{{e[8]}}</button></td>
+          {% else %}
+          <td><button style="background-color: red">{{e[8]}}</button></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="no-payments">
+      <p>NO Events Created or Allocated 😭</p>
     </div>
     {% endif %}
-    </div>
+  </div>
 </div>
 {% endblock %}
